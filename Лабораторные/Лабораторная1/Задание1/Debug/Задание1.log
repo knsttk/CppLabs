@@ -1,2 +1,6 @@
 ﻿  Задание1.cpp
-c:\users\zaloz\documents\github\cpplabs\лабораторные\лабораторная1\1\задание1\задание1.cpp(25): fatal error C1010: непредвиденный конец файла во время поиска предкомпилированного заголовка. Возможно, вы забыли добавить директиву "#include "stdafx.h"" в источник.
+c:\users\zaloz\documents\github\cpplabs\лабораторные\лабораторная1\задание1\задание1.cpp(18): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+c:\users\zaloz\documents\github\cpplabs\лабораторные\лабораторная1\задание1\задание1.cpp(20): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+c:\users\zaloz\documents\github\cpplabs\лабораторные\лабораторная1\задание1\задание1.cpp(23): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+  Задание1.vcxproj -> C:\Users\zaloz\Documents\GitHub\CppLabs\Лабораторные\Лабораторная1\Задание1\Debug\Задание1.exe
+  Задание1.vcxproj -> C:\Users\zaloz\Documents\GitHub\CppLabs\Лабораторные\Лабораторная1\Задание1\Debug\Задание1.pdb (Partial PDB)
