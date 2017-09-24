@@ -1,0 +1,6 @@
+﻿  зд1.cpp
+c:\users\zaloz\documents\github\cpplabs\лабораторные\лабораторная1\задание1_без_stdafx\зд1.cpp(17): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+c:\users\zaloz\documents\github\cpplabs\лабораторные\лабораторная1\задание1_без_stdafx\зд1.cpp(26): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+c:\users\zaloz\documents\github\cpplabs\лабораторные\лабораторная1\задание1_без_stdafx\зд1.cpp(30): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+  Задание1_без_stdafx.vcxproj -> C:\Users\zaloz\Documents\GitHub\CppLabs\Лабораторные\Лабораторная1\Debug\Задание1_без_stdafx.exe
+  Задание1_без_stdafx.vcxproj -> C:\Users\zaloz\Documents\GitHub\CppLabs\Лабораторные\Лабораторная1\Debug\Задание1_без_stdafx.pdb (Partial PDB)
