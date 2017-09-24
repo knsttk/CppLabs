@@ -1,0 +1,4 @@
+﻿  Задание6.cpp
+c:\users\zaloz\documents\github\cpplabs\лабораторные\лабораторная1\задание6\задание6.cpp(27): warning C4244: =: преобразование "long double" в "float", возможна потеря данных
+  Задание6.vcxproj -> C:\Users\zaloz\Documents\GitHub\CppLabs\Лабораторные\Лабораторная1\Debug\Задание6.exe
+  Задание6.vcxproj -> C:\Users\zaloz\Documents\GitHub\CppLabs\Лабораторные\Лабораторная1\Debug\Задание6.pdb (Partial PDB)
