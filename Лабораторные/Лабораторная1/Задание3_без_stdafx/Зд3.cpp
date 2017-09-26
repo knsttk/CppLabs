@@ -6,7 +6,7 @@ int main()
 {
 	setlocale(LC_ALL, "Russian");
 	int n;
-	cout << "Ââåäèòå N: " << endl;
+	cout << "Ã‚Ã¢Ã¥Ã¤Ã¨Ã²Ã¥ N: " << endl;
 	int sum = 0; 
 	cin >> n;
 	while (n > 0)
@@ -14,7 +14,7 @@ int main()
 		sum = sum + n % 10; 
 		n = n / 10; 
 	}
-	cout << "Ñóììà = " << sum << endl;
+	cout << "Ã‘Ã³Ã¬Ã¬Ã  = " << sum << endl;
 
 	system("pause");
 	return 0;
