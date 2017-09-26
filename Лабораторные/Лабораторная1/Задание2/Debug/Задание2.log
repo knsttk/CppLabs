@@ -1,0 +1,5 @@
+﻿  Зд2.cpp
+c:\users\zaloz\documents\github\cpplabs\лабораторные\лабораторная1\задание2\зд2.cpp(14): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+c:\users\zaloz\documents\github\cpplabs\лабораторные\лабораторная1\задание2\зд2.cpp(19): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+  Задание2.vcxproj -> C:\Users\zaloz\Documents\GitHub\CppLabs\Лабораторные\Лабораторная1\Debug\Задание2.exe
+  Задание2.vcxproj -> C:\Users\zaloz\Documents\GitHub\CppLabs\Лабораторные\Лабораторная1\Debug\Задание2.pdb (Partial PDB)
