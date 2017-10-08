@@ -18,6 +18,12 @@ int main()
 	{
 		for (int i = 0; i < size; i++)
 		{
+			if (mas[i] < mas[i + 1] && mas[i + 1] == 0)
+			{
+				t = mas[i];
+				mas[i] = mas[i + 1];
+				mas[i + 1] = t;
+			}
 			if (mas[i] < mas[i + 1] && mas[i] < 0 && mas[i + 1] > 0)
 			{
 				t = mas[i];
