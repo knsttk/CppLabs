@@ -22,7 +22,8 @@ int main()
 			{
 				t = mas[i];
 				mas[i] = mas[i + 1];
-				mas[i + 1] = t;			}
+				mas[i + 1] = t;
+			}
 		}
 	}
 	for (int i = 0; i < size; i++)
