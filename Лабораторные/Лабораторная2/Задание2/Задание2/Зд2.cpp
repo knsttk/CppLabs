@@ -1,3 +1,4 @@
+// Lab2, Variant 9, Ex.2
 #include <iostream>
 using namespace std;
 
