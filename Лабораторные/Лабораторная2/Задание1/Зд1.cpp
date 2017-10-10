@@ -40,7 +40,7 @@ int main()
 			break;
 		}
 	}
-	delete [] mas;
+	delete mas;
 
 	system("pause");
 	return 0;

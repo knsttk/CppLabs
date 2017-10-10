@@ -37,7 +37,7 @@ int main()
 	{
 		cout << "a[" << i << "] = " << mas[i] << endl;
 	}
-	delete[] mas;
+	delete mas;
 	system("pause");
 	return 0;
 }
