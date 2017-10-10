@@ -1,0 +1,5 @@
+﻿  Зд4.cpp
+c:\users\zaloz\documents\github\cpplabs\лабораторные\лабораторная2\задание4\задание4\зд4.cpp(24): warning C4156: удаление массива без использования формы оператора "delete", предусмотренной для массива; подставлена предусмотренная форма оператора
+c:\users\zaloz\documents\github\cpplabs\лабораторные\лабораторная2\задание4\задание4\зд4.cpp(24): warning C4154: удаление массива; выполнено преобразование к указателю
+  Задание4.vcxproj -> C:\Users\zaloz\Documents\GitHub\CppLabs\Лабораторные\Лабораторная2\Задание4\Debug\Задание4.exe
+  Задание4.vcxproj -> C:\Users\zaloz\Documents\GitHub\CppLabs\Лабораторные\Лабораторная2\Задание4\Debug\Задание4.pdb (Partial PDB)
