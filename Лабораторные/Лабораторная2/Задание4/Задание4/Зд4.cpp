@@ -40,26 +40,17 @@ int main()
 			t = mas[i][j + n / 2];
 			mas[i][j + n / 2] = mas[i][j];
 			mas[i][j] = t;
-		}
-	}
-	for (int i = 0; i < n / 2; i++)
-	{
-		for (int j = 0; j < m / 2; j++) // Меняем местами 3 и 4 блоки
-		{
+
 			t = mas[i + n / 2][j + n / 2];
 			mas[i + n / 2][j + n / 2] = mas[i + n / 2][j];
 			mas[i + n / 2][j] = t;
-		}
-	}
-	for (int i = 0; i < n / 2; i++)
-	{
-		for (int j = 0; j < m / 2; j++) // Меняем местами 1 и 4 блоки
-		{
+
 			t = mas[i + n / 2][j + n / 2];
 			mas[i + n / 2][j + n / 2] = mas[i][j];
 			mas[i][j] = t;
 		}
 	}
+	
 	cout << "Новый массив: " << endl;
 	for (int i = 0; i < m; i++)
 	{
