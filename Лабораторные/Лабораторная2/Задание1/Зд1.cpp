@@ -1,4 +1,4 @@
-// Lab2, Variant 9, Ex.1
+﻿// Lab2, Variant 9, Ex.1
 #include <iostream>
 
 using namespace std;
@@ -40,7 +40,7 @@ int main()
 			break;
 		}
 	}
-	delete mas;
+	delete [] mas;
 
 	system("pause");
 	return 0;

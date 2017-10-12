@@ -5,13 +5,13 @@ using namespace std;
 int main()
 {
 	setlocale(LC_ALL, "Russian");
-	cout << "Ââåäèòå ê-âî ýëåìåíòîâ ìàññèâà: " << endl;
+	cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ðº-Ð²Ð¾ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð¾Ð² Ð¼Ð°ÑÑÐ¸Ð²Ð°: " << endl;
 	int size;
 	cin >> size;
 	int* mas = new int[size];
 	for (int i = 0; i < size; i++)
 	{
-		cout << "Ââåäèòå " << i + 1 << "-ûé ýëåìåíò: " << endl;
+		cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ " << i + 1 << "-Ñ‹Ð¹ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚: " << endl;
 		cin >> mas[i];
 	}
 	int t;
@@ -32,7 +32,7 @@ int main()
 	{
 		cout << "mas[" << t << "]" << mas[t] << endl;
 	}
-	delete mas;
+	delete [] mas;
 	system("pause");
 	return 0;
 }
