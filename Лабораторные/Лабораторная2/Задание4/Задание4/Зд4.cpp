@@ -14,7 +14,7 @@ int main()
 		mas[i] = new int[m];
 		for (int j = 0; j < m; j++)
 		{
-			cout << "Введите mas[" << i << "][" << j << "]: " << endl;
+			cout << "Введите mas[" << i + 1 << "][" << j + 1 << "]: " << endl;
 			cin >> mas[i][j];
 		}
 	}
