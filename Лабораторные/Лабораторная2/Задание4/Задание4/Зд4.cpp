@@ -32,16 +32,16 @@ int main()
 
 	}
 	cout << endl;
-	int t; // Начинаем менять местами блоки
+	int t; 
 	for (int i = 0; i < n/2; i++)
 	{
-		for (int j = 0; j < m / 2; j++) // Меняем местами 1 и 2 блоки
+		for (int j = 0; j < m / 2; j++) 
 		{
-			t = mas[i][j + n / 2];
+			t = mas[i][j + n / 2]; 
 			mas[i][j + n / 2] = mas[i][j];
 			mas[i][j] = t;
 
-			t = mas[i + n / 2][j + n / 2];
+			t = mas[i + n / 2][j + n / 2]; 
 			mas[i + n / 2][j + n / 2] = mas[i + n / 2][j];
 			mas[i + n / 2][j] = t;
 
