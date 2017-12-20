@@ -12,7 +12,6 @@ struct Student
 	char Lname[20];
 	char Fname[20];
 	char Patr[20];
-	char smena[20];
 	int grp;
 	int mark[5];
 };
@@ -45,7 +44,7 @@ int main()
 	
 		cout << endl << "¬ведите номер группы " << i << "-го студента: ";
 		cin >> names[i].grp;
-		cout << names[i].grp;
+
 		cout << endl << "¬ведите оценки " << i << "-го студента : ";
 		
 		
@@ -70,21 +69,17 @@ int main()
 			}
 	}
 	cout << endl;
-	int temp;
-	Student *smena = new Student[20];
 	for (int i = 1; i < n; i++) // —ортировка по возрастанию группы
 	{
-		if (names[i].grp > names[i+1].grp)
+		for (int i = 1; i < n; i++)
 		{
-			temp = names[i].grp;
-			names[i].grp = names[i + 1].grp;
-			names[i + 1].grp = temp;
-			cout << names[i + 1].grp;
-			for (int j = 1; j <= 20; j++)
+			if (names[i + 1].grp < names[i].grp)
 			{
-				names[i].smena[j] = names[i].Lname[j];
-				names[i].grp = names[i + 1].Lname[j];
-				names[i + 1].grp = temp;
+				swap(names[i].grp, names[i + 1].grp);
+				swap(names[i].Lname, names[i + 1].Lname);
+				swap(names[i].Fname, names[i + 1].Fname);
+				swap(names[i].Patr, names[i + 1].Patr);
+				swap(aver[i], aver[i + 1]);
 			}
 		}
 	}
