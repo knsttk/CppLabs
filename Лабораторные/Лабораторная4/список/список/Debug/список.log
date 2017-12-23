@@ -1,3 +1,2 @@
 ﻿  список.cpp
-  список.vcxproj -> C:\Users\zaloz\Documents\GitHub\CppLabs\Лабораторные\Лабораторная4\список\Debug\список.exe
-  список.vcxproj -> C:\Users\zaloz\Documents\GitHub\CppLabs\Лабораторные\Лабораторная4\список\Debug\список.pdb (Partial PDB)
+c:\users\zaloz\documents\github\cpplabs\лабораторные\лабораторная4\список\список\список.cpp(21): fatal error C1083: Не удается открыть файл включение: List.h: No such file or directory

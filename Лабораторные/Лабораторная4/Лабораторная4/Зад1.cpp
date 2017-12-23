@@ -99,7 +99,7 @@ int main()
 			}
 
 	}
-
+	delete names[1].buf;
 	cout << endl;
 	for (int i = 1; i < n; i++) // Сортировка по возрастанию группы
 	{
