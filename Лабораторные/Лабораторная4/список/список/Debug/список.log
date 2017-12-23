@@ -1,2 +1,7 @@
 ﻿  список.cpp
-c:\users\zaloz\documents\github\cpplabs\лабораторные\лабораторная4\список\список\список.cpp(21): fatal error C1083: Не удается открыть файл включение: List.h: No such file or directory
+c:\users\zaloz\documents\github\cpplabs\лабораторные\лабораторная4\список\список\список.cpp(96): error C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\string.h(136): note:  см. объявление "strcpy"
+c:\users\zaloz\documents\github\cpplabs\лабораторные\лабораторная4\список\список\список.cpp(103): error C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\string.h(136): note:  см. объявление "strcpy"
+c:\users\zaloz\documents\github\cpplabs\лабораторные\лабораторная4\список\список\список.cpp(110): error C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\string.h(136): note:  см. объявление "strcpy"

@@ -1,3 +1,7 @@
 ﻿  Зад1.cpp
-  Лабораторная4.vcxproj -> C:\Users\zaloz\Documents\GitHub\CppLabs\Лабораторные\Лабораторная4\Debug\Лабораторная4.exe
-  Лабораторная4.vcxproj -> C:\Users\zaloz\Documents\GitHub\CppLabs\Лабораторные\Лабораторная4\Debug\Лабораторная4.pdb (Partial PDB)
+c:\users\zaloz\documents\github\cpplabs\лабораторные\лабораторная4\лабораторная4\зад1.cpp(44): error C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\string.h(136): note:  см. объявление "strcpy"
+c:\users\zaloz\documents\github\cpplabs\лабораторные\лабораторная4\лабораторная4\зад1.cpp(51): error C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\string.h(136): note:  см. объявление "strcpy"
+c:\users\zaloz\documents\github\cpplabs\лабораторные\лабораторная4\лабораторная4\зад1.cpp(58): error C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\string.h(136): note:  см. объявление "strcpy"

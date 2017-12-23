@@ -10,7 +10,7 @@
 #include <iostream>
 #include <clocale>
 #include <windows.h>
-#include <cstring>
+#include <string.h>
 using namespace std;
 
 struct Student
@@ -39,38 +39,24 @@ int main()
 		system("cls");
 		cout << "¬ведите ‘амилию " << i << "-го студента: ";
 		cin >> names[1].buf; 
-		int k = strlen(names[1].buf);
-		names[i].Lname = new char[k];
-			for (int j = 0; j <= k; j++)
-			{
-				names[i].Lname[j] = names[1].buf[j];
-			}
+		int k = strlen(names[1].buf)+1;
+			names[i].Lname = new char[k];
+			strcpy(names[i].Lname, names[1].buf);
 			memset(names[1].buf, 0, sizeof(names[1].buf));
 
 		cout << "¬ведите »м€ " << i << "-го студента: ";
 		cin >> names[1].buf;
-		k = strlen(names[1].buf);
-	
-
-		names[i].Fname = new char[k];
-			for (int j = 0; j <= k; j++)
-			{
-				names[i].Fname[j] = names[1].buf[j];
-			}
-	
-				memset(names[1].buf, 0, sizeof(names[1].buf));
+		k = strlen(names[1].buf)+1;
+			names[i].Fname = new char[k];
+			strcpy(names[i].Fname, names[1].buf);
+			memset(names[1].buf, 0, sizeof(names[1].buf));
 
 		cout << "¬ведите ќтчество " << i << "-го студента: ";
 		cin >> names[1].buf;
-		k = strlen(names[1].buf);
-
-		names[i].Patr = new char[k];
-			for (int j = 0; j <= k; j++)
-			{
-				names[i].Patr[j] = names[1].buf[j];
-			}
-				
-				memset(names[1].buf, 0, sizeof(names[1].buf));
+		k = strlen(names[1].buf)+1;
+			names[i].Patr = new char[k];
+			strcpy(names[i].Patr, names[1].buf);
+			memset(names[1].buf, 0, sizeof(names[1].buf));
 	
 		cout << endl << "¬ведите номер группы " << i << "-го студента: ";
 		cin >> names[i].grp;
@@ -99,7 +85,7 @@ int main()
 			}
 
 	}
-	delete names[1].buf;
+	delete[] names[1].buf;
 	cout << endl;
 	for (int i = 1; i < n; i++) // —ортировка по возрастанию группы
 	{
