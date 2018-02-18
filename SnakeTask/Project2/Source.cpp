@@ -1,7 +1,7 @@
 #include <iostream>
 #include <conio.h>
 #include <windows.h>
-#include <clocale>
+#include <fstream>
 using namespace std;
 
 bool gameOver;
@@ -10,9 +10,10 @@ const int height = 16;
 int x, y, Bx, By, scr = 0;
 int Tx[50], Ty[50];
 int Nt;
+char *buf = new char[255];
 enum eDirection { STOP = 0, LEFT, RIGHT, UP, DOWN };
 eDirection dir;
-/*========================Основа====================*/
+/*========================РћСЃРЅРѕРІР°====================*/
 void Setup()
 {
 	gameOver = false;
@@ -23,7 +24,7 @@ void Setup()
 	By = rand() % height;
 	scr = 0;
 }
-/*===================Прорисовка карты===============*/
+/*===================РџСЂРѕСЂРёСЃРѕРІРєР° РєР°СЂС‚С‹===============*/
 void Draw()
 {
 	system("cls");
@@ -40,7 +41,7 @@ void Draw()
 			if (j == 0 || j == width - 1)
 			{
 				cout << "|";
-				if (i == height / 2 && j == width - 1)
+				if (i == height / 2 && j == width - 1) 
 				{
 					cout << "Your score: " << scr;
 				}
@@ -80,7 +81,7 @@ void Draw()
 	cout << "Press 'p' to pause." << endl;
 	Sleep(50);
 }
-/*======================Управление==================*/
+/*======================РЈРїСЂР°РІР»РµРЅРёРµ==================*/
 void Input()
 {
 	if (_kbhit())
@@ -124,6 +125,7 @@ void Input()
 			case 'y':
 			{
 				gameOver = true;
+				exit(0);
 			}
 			case 'n':
 			{
@@ -132,7 +134,7 @@ void Input()
 			}
 			break;
 		}
-		case 'з':
+		case 'Р·':
 		{
 			system("cls");
 			cout << "PAUSE" << endl << endl;
@@ -143,7 +145,7 @@ void Input()
 		}
 	}
 }
-/*================Логика с обычной картой===========*/
+/*================Р›РѕРіРёРєР° СЃ РѕР±С‹С‡РЅРѕР№ РєР°СЂС‚РѕР№===========*/
 void Logic()
 {
 
@@ -191,15 +193,15 @@ void Logic()
 		By = rand() % height;
 		Nt++;
 	}
-	/*================Столкновение со стеной============*/
-	if (x > width - 1 || x == 0 || y > height || y == -1)
+	/*================РЎС‚РѕР»РєРЅРѕРІРµРЅРёРµ СЃРѕ СЃС‚РµРЅРѕР№============*/
+	if (x > width - 1 || x < 0 || y > height - 1 || y < 0)
 	{
 		system("cls");
 		cout << "Game Over!" << endl;
 		cout << endl << "Your score: " << scr << endl;
 		gameOver = true;
 	}
-	/*================Столкновение с хвостом============*/
+	/*================РЎС‚РѕР»РєРЅРѕРІРµРЅРёРµ СЃ С…РІРѕСЃС‚РѕРј============*/
 	for (int i = 0; i < Nt; i++)
 	{
 		if (Tx[i] == x && Ty[i] == y)
@@ -211,7 +213,7 @@ void Logic()
 		}
 	}
 }
-/*==============Логика с бесконечной картой=========*/
+/*==============Р›РѕРіРёРєР° СЃ Р±РµСЃРєРѕРЅРµС‡РЅРѕР№ РєР°СЂС‚РѕР№=========*/
 void EndlessLogic()
 {
 
@@ -253,7 +255,7 @@ void EndlessLogic()
 		break;
 	}
 	}
-	/*======Перенос змейки на противоположную сторону===*/
+	/*======РџРµСЂРµРЅРѕСЃ Р·РјРµР№РєРё РЅР° РїСЂРѕС‚РёРІРѕРїРѕР»РѕР¶РЅСѓСЋ СЃС‚РѕСЂРѕРЅСѓ===*/
 	if (x >= width)
 	{
 		x = 0;
@@ -270,7 +272,7 @@ void EndlessLogic()
 	{
 		y = height - 1;
 	}
-	/*=============Начисление очков за фрукт============*/
+	/*=============РќР°С‡РёСЃР»РµРЅРёРµ РѕС‡РєРѕРІ Р·Р° С„СЂСѓРєС‚============*/
 	if (x == Bx && y == By)
 	{
 		scr++;
@@ -278,7 +280,7 @@ void EndlessLogic()
 		By = rand() % height;
 		Nt++;
 	}
-	/*==============Столкновение с хвостом==============*/
+	/*==============РЎС‚РѕР»РєРЅРѕРІРµРЅРёРµ СЃ С…РІРѕСЃС‚РѕРј==============*/
 	for (int i = 0; i < Nt; i++)
 	{
 		if (Tx[i] == x && Ty[i] == y)
@@ -290,7 +292,18 @@ void EndlessLogic()
 		}
 	}
 }
-/*===================Главная Функция================*/
+/*===================РўР°Р±Р»РёС†Р° СЂРµРєРѕСЂРґРѕРІ===============*/
+void Record()
+{
+	
+	cout << "Enter your name: " << endl;
+	cin.getline(buf, 255);
+	ofstream rec("record.txt", ios :: app);
+	rec << buf << " - - - - - " << scr << endl;
+	rec.close();
+	
+}
+/*===================Р“Р»Р°РІРЅР°СЏ Р¤СѓРЅРєС†РёСЏ================*/
 int main()
 {
 
@@ -300,22 +313,63 @@ int main()
 	cout << "Hello! It's Snake!" << endl;
 	cout << "Choose the field-style:" << endl;
 	cout << "1 - Standart." << endl;
-	cout << "2 - Endless." << endl;
+	cout << "2 - Endless." << endl << endl;
+	cout << "Press 'x' to exit." << endl;
 	switch (_getch())
 	{
-	case '1':
-	{
-		Setup();
-		while (!gameOver)
+		case '1':
 		{
-			Draw();
-			Input();
-			Logic();
+			Setup();
+			while (!gameOver)
+			{
+				Draw();
+				Input();
+				Logic();
+			}
+			break;
+			
 		}
-		cout << "1 - exit." << endl;
-		cout << "2 - restart.";
-		switch (_getch())
+		case '2':
 		{
+			Setup();
+			while (!gameOver)
+			{
+				Draw();
+				Input();
+				EndlessLogic();
+			}
+			break;
+		}
+		case 'x' :
+		{
+			exit(0);
+		}
+		default:
+		{
+			cout << endl << "Incorrect input. Try Again." << endl;
+			cout << "Press any key to restart." << endl;
+			_getch();
+			system("cls");
+			main();
+		}
+	}
+	Record();
+	system("cls");
+	cout << "HIGHSCORES..." << endl << endl;
+	ifstream rec("record.txt");
+	cout << "=====================================" << endl;
+		while (!rec.eof())	//Р’С‹РІРѕРґ СЂРµРєРѕСЂРґРѕРІ РЅР° СЌРєСЂР°РЅ
+		{
+			rec.getline(buf, 255);
+			cout << buf << endl << endl;
+		}
+	rec.close();
+	cout << "=====================================" << endl;
+	cout << "Press '1' to exit." << endl;
+	cout << "Press '2' to restart." << endl;
+	cout << "Press 'e' to erase all records." << endl;
+		switch (_getch())
+			{
 			case '1':
 			{
 				break;
@@ -323,47 +377,26 @@ int main()
 			case '2':
 			{
 				system("cls");
+				Nt = 0;
+				gameOver = false;
 				main();
-				break;
+			}
+			case 'e':
+			{
+				ofstream rec("record.txt");
+				rec << "\0";
+				rec.close();
+
+				system("cls");
+				cout << "All records has erased.";
+				_getch();
+				system("cls");
+				Nt = 0;
+				gameOver = false;
+				main();
 			}
 		}
-		break;
-	}
-	case '2':
-	{
-		Setup();
-		while (!gameOver)
-		{
-			Draw();
-			Input();
-			EndlessLogic();
-		}
-		cout << endl << "1 - exit." << endl;
-		cout << "2 - restart.";
-		switch (_getch())
-		{
-		case '1':
-		{
-			break;
-		}
-		case '2':
-		{
-			system("cls");
-			main();
-			break;
-		}
-		}
-
-		break;
-	}
-	default:
-	{
-		cout << endl << "Incorrect input. Try Again." << endl;
-		cout << "Press any key to restart." << endl;
-		_getch();
-		system("cls");
-		main();
-	}
-	}
+	
 	return 0;
+	delete[] buf;
 }
