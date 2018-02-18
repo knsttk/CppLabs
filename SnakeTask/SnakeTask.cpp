@@ -13,7 +13,7 @@ int Nt;
 char *buf = new char[255];
 enum eDirection { STOP = 0, LEFT, RIGHT, UP, DOWN };
 eDirection dir;
-/*========================Основа====================*/
+/*========================РћСЃРЅРѕРІР°====================*/
 void Setup()
 {
 	gameOver = false;
@@ -24,7 +24,7 @@ void Setup()
 	By = rand() % height;
 	scr = 0;
 }
-/*===================Прорисовка карты===============*/
+/*===================РџСЂРѕСЂРёСЃРѕРІРєР° РєР°СЂС‚С‹===============*/
 void Draw()
 {
 	system("cls");
@@ -81,7 +81,7 @@ void Draw()
 	cout << "Press 'p' to pause." << endl;
 	Sleep(50);
 }
-/*======================Управление==================*/
+/*======================РЈРїСЂР°РІР»РµРЅРёРµ==================*/
 void Input()
 {
 	if (_kbhit())
@@ -134,7 +134,7 @@ void Input()
 			}
 			break;
 		}
-		case 'з':
+		case 'Р·':
 		{
 			system("cls");
 			cout << "PAUSE" << endl << endl;
@@ -145,7 +145,7 @@ void Input()
 		}
 	}
 }
-/*================Логика с обычной картой===========*/
+/*================Р›РѕРіРёРєР° СЃ РѕР±С‹С‡РЅРѕР№ РєР°СЂС‚РѕР№===========*/
 void Logic()
 {
 
@@ -193,7 +193,7 @@ void Logic()
 		By = rand() % height;
 		Nt++;
 	}
-	/*================Столкновение со стеной============*/
+	/*================РЎС‚РѕР»РєРЅРѕРІРµРЅРёРµ СЃРѕ СЃС‚РµРЅРѕР№============*/
 	if (x > width - 1 || x < 0 || y > height - 1 || y < 0)
 	{
 		system("cls");
@@ -201,7 +201,7 @@ void Logic()
 		cout << endl << "Your score: " << scr << endl;
 		gameOver = true;
 	}
-	/*================Столкновение с хвостом============*/
+	/*================РЎС‚РѕР»РєРЅРѕРІРµРЅРёРµ СЃ С…РІРѕСЃС‚РѕРј============*/
 	for (int i = 0; i < Nt; i++)
 	{
 		if (Tx[i] == x && Ty[i] == y)
@@ -213,7 +213,7 @@ void Logic()
 		}
 	}
 }
-/*==============Логика с бесконечной картой=========*/
+/*==============Р›РѕРіРёРєР° СЃ Р±РµСЃРєРѕРЅРµС‡РЅРѕР№ РєР°СЂС‚РѕР№=========*/
 void EndlessLogic()
 {
 
@@ -255,7 +255,7 @@ void EndlessLogic()
 		break;
 	}
 	}
-	/*======Перенос змейки на противоположную сторону===*/
+	/*======РџРµСЂРµРЅРѕСЃ Р·РјРµР№РєРё РЅР° РїСЂРѕС‚РёРІРѕРїРѕР»РѕР¶РЅСѓСЋ СЃС‚РѕСЂРѕРЅСѓ===*/
 	if (x >= width)
 	{
 		x = 0;
@@ -272,7 +272,7 @@ void EndlessLogic()
 	{
 		y = height - 1;
 	}
-	/*=============Начисление очков за фрукт============*/
+	/*=============РќР°С‡РёСЃР»РµРЅРёРµ РѕС‡РєРѕРІ Р·Р° С„СЂСѓРєС‚============*/
 	if (x == Bx && y == By)
 	{
 		scr++;
@@ -280,7 +280,7 @@ void EndlessLogic()
 		By = rand() % height;
 		Nt++;
 	}
-	/*==============Столкновение с хвостом==============*/
+	/*==============РЎС‚РѕР»РєРЅРѕРІРµРЅРёРµ СЃ С…РІРѕСЃС‚РѕРј==============*/
 	for (int i = 0; i < Nt; i++)
 	{
 		if (Tx[i] == x && Ty[i] == y)
@@ -292,7 +292,7 @@ void EndlessLogic()
 		}
 	}
 }
-/*===================Таблица рекордов===============*/
+/*===================РўР°Р±Р»РёС†Р° СЂРµРєРѕСЂРґРѕРІ===============*/
 void Record()
 {
 	
@@ -303,7 +303,7 @@ void Record()
 	rec.close();
 	
 }
-/*===================Главная Функция================*/
+/*===================Р“Р»Р°РІРЅР°СЏ Р¤СѓРЅРєС†РёСЏ================*/
 int main()
 {
 
@@ -313,7 +313,8 @@ int main()
 	cout << "Hello! It's Snake!" << endl;
 	cout << "Choose the field-style:" << endl;
 	cout << "1 - Standart." << endl;
-	cout << "2 - Endless." << endl;
+	cout << "2 - Endless." << endl << endl;
+	cout << "Press 'x' to exit." << endl;
 	switch (_getch())
 	{
 		case '1':
@@ -339,6 +340,10 @@ int main()
 			}
 			break;
 		}
+		case 'x' :
+		{
+			exit(0);
+		}
 		default:
 		{
 			cout << endl << "Incorrect input. Try Again." << endl;
@@ -352,29 +357,46 @@ int main()
 	system("cls");
 	cout << "HIGHSCORES..." << endl << endl;
 	ifstream rec("record.txt");
-	while (!rec.eof())
-	{
-		rec.getline(buf, 255);
-		cout << buf << endl << endl;
-	}
+	cout << "=====================================" << endl;
+		while (!rec.eof())	//Р’С‹РІРѕРґ СЂРµРєРѕСЂРґРѕРІ РЅР° СЌРєСЂР°РЅ
+		{
+			rec.getline(buf, 255);
+			cout << buf << endl << endl;
+		}
 	rec.close();
-
+	cout << "=====================================" << endl;
 	cout << "Press '1' to exit." << endl;
-	cout << "Press '2' to restart.";
-	switch (_getch())
-	{
-	case '1':
-	{
-		break;
-	}
-	case '2':
-	{
-		system("cls");
-		Nt = 0;
-		gameOver = false;
-		main();
-	}
-	}
+	cout << "Press '2' to restart." << endl;
+	cout << "Press 'e' to erase all records." << endl;
+		switch (_getch())
+			{
+			case '1':
+			{
+				break;
+			}
+			case '2':
+			{
+				system("cls");
+				Nt = 0;
+				gameOver = false;
+				main();
+			}
+			case 'e':
+			{
+				ofstream rec("record.txt");
+				rec << "\0";
+				rec.close();
+
+				system("cls");
+				cout << "All records has erased.";
+				_getch();
+				system("cls");
+				Nt = 0;
+				gameOver = false;
+				main();
+			}
+		}
+	
 	return 0;
 	delete[] buf;
 }
