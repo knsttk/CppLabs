@@ -212,6 +212,22 @@ void Logic()
 			gameOver = true;
 		}
 	}
+	
+	/*
+	/*=======================Выигрыш====================*/
+	if (scr == (width*height - widht*2 - (height-2) *2 - 1))
+	{
+		system ("cls");
+		while (!_getch())
+		{
+		cout << "Congratulations! You passed the game!"
+		Sleep(100);
+		system("cls");
+		Sleep(100);
+		}
+		gameOver = true;
+	}
+	*/
 }
 /*==============Логика с бесконечной картой=========*/
 void EndlessLogic()
@@ -291,6 +307,21 @@ void EndlessLogic()
 			gameOver = true;
 		}
 	}
+	/*
+	/*=======================Выигрыш====================*/
+	if (scr == (width*height - widht*2 - (height-2) *2 - 1))
+	{
+		system ("cls");
+		while (!_getch())
+		{
+		cout << "Congratulations! You passed the game!"
+		Sleep(100);
+		system("cls");
+		Sleep(100);
+		}
+		gameOver = true;
+	}
+	*/
 }
 /*===================Таблица рекордов===============*/
 void Record()
