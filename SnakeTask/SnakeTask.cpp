@@ -213,7 +213,7 @@ void Logic()
 		}
 	}
 	
-	/*
+
 	/*=======================Выигрыш====================*/
 	if (scr == (width*height - widht*2 - (height-2) *2 - 1))
 	{
@@ -227,7 +227,7 @@ void Logic()
 		}
 		gameOver = true;
 	}
-	*/
+	
 }
 /*==============Логика с бесконечной картой=========*/
 void EndlessLogic()
@@ -307,7 +307,7 @@ void EndlessLogic()
 			gameOver = true;
 		}
 	}
-	/*
+	
 	/*=======================Выигрыш====================*/
 	if (scr == (width*height - widht*2 - (height-2) *2 - 1))
 	{
@@ -321,7 +321,7 @@ void EndlessLogic()
 		}
 		gameOver = true;
 	}
-	*/
+	
 }
 /*===================Таблица рекордов===============*/
 void Record()
