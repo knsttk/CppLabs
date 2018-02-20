@@ -20,9 +20,50 @@ void Setup()
 	dir = STOP;
 	x = width / 2 - 1;
 	y = height / 2 - 1;
-	Bx = rand() % width;
+	Bx = rand() % (width - 1);
 	By = rand() % height;
 	scr = 0;
+}
+/*========================Победа====================*/
+void Win()
+{
+	if (scr == width*height)
+	{
+		system("cls");
+		cout << "<3";
+		Sleep(200);
+		system("cls");
+		cout << "=<3";
+		Sleep(200);
+		system("cls");
+		cout << "~~<3";
+		Sleep(200);
+		system("cls");
+		cout << "===<3";
+		Sleep(200);
+		system("cls");
+		cout << "~~~~<3";
+		Sleep(200);
+		system("cls");
+		cout << "=====<3";
+		Sleep(200);
+		system("cls");
+		cout << "<~~~~~~<3" << endl;
+		Sleep(200);
+		cout << "Congratulations! You passed the game!" << endl << endl;
+
+		cout << "~####~~##~~##~~####~~##~~##~#####" << endl;
+		Sleep(500);
+		cout << "##~~~~~###~##~##~~##~##~##~~##" << endl;
+		Sleep(500);
+		cout << "~####~~##~###~######~####~~~####" << endl;
+		Sleep(500);
+		cout << "~~~~##~##~~##~##~~##~##~##~~##" << endl;
+		Sleep(500);
+		cout << "~####~~##~~##~##~~##~##~~##~#####" << endl << endl;
+		Sleep(500);
+		gameOver = true;
+	}
 }
 /*===================Прорисовка карты===============*/
 void Draw()
@@ -40,11 +81,8 @@ void Draw()
 		{
 			if (j == 0 || j == width - 1)
 			{
-				cout << "|";
-				if (i == height / 2 && j == width - 1) 
-				{
-					cout << "Your score: " << scr;
-				}
+				cout << "%";
+
 			}
 			if (i == y && j == x)
 			{
@@ -77,9 +115,9 @@ void Draw()
 		cout << "%";
 	}
 	cout << endl;
-	cout << "Press 'x' to exit." << endl;
+	cout << "Press 'x' to exit." << "     " << "Your Score: " << scr << endl;
 	cout << "Press 'p' to pause." << endl;
-	Sleep(50);
+	Sleep(300);
 }
 /*======================Управление==================*/
 void Input()
@@ -194,7 +232,7 @@ void Logic()
 		Nt++;
 	}
 	/*================Столкновение со стеной============*/
-	if (x > width - 1 || x < 0 || y > height - 1 || y < 0)
+	if (x > width - 2 || x == 0 || y > height - 1 || y < 0)
 	{
 		system("cls");
 		cout << "Game Over!" << endl;
@@ -212,22 +250,7 @@ void Logic()
 			gameOver = true;
 		}
 	}
-	
-
-	/*
-	if (scr == (width*height - widht*2 - (height-2) *2 - 1))
-	{
-		system ("cls");
-		while (!_getch())
-		{
-		cout << "Congratulations! You passed the game!"
-		Sleep(100);
-		system("cls");
-		Sleep(100);
-		}
-		gameOver = true;
-	}
-	*/
+	Win();
 }
 /*==============Логика с бесконечной картой=========*/
 void EndlessLogic()
@@ -272,11 +295,11 @@ void EndlessLogic()
 	}
 	}
 	/*======Перенос змейки на противоположную сторону===*/
-	if (x >= width)
+	if (x >= width - 1)
 	{
 		x = 0;
 	}
-	else if (x < 0)
+	else if (x == 0)
 	{
 		x = width - 1;
 	}
@@ -307,32 +330,18 @@ void EndlessLogic()
 			gameOver = true;
 		}
 	}
-	
-	/*
-	if (scr == (width*height - widht*2 - (height-2) *2 - 1))
-	{
-		system ("cls");
-		while (!_getch())
-		{
-		cout << "Congratulations! You passed the game!"
-		Sleep(100);
-		system("cls");
-		Sleep(100);
-		}
-		gameOver = true;
-	}
-	*/
+	Win();
 }
 /*===================Таблица рекордов===============*/
 void Record()
 {
-	
+
 	cout << "Enter your name: " << endl;
 	cin.getline(buf, 255);
-	ofstream rec("record.txt", ios :: app);
+	ofstream rec("record.txt", ios::app);
 	rec << buf << " - - - - - " << scr << endl;
 	rec.close();
-	
+
 }
 /*===================Главная Функция================*/
 int main()
@@ -348,86 +357,86 @@ int main()
 	cout << "Press 'x' to exit." << endl;
 	switch (_getch())
 	{
-		case '1':
+	case '1':
+	{
+		Setup();
+		while (!gameOver)
 		{
-			Setup();
-			while (!gameOver)
-			{
-				Draw();
-				Input();
-				Logic();
-			}
-			break;
-			
+			Draw();
+			Input();
+			Logic();
 		}
-		case '2':
+		break;
+
+	}
+	case '2':
+	{
+		Setup();
+		while (!gameOver)
 		{
-			Setup();
-			while (!gameOver)
-			{
-				Draw();
-				Input();
-				EndlessLogic();
-			}
-			break;
+			Draw();
+			Input();
+			EndlessLogic();
 		}
-		case 'x' :
-		{
-			exit(0);
-		}
-		default:
-		{
-			cout << endl << "Incorrect input. Try Again." << endl;
-			cout << "Press any key to restart." << endl;
-			_getch();
-			system("cls");
-			main();
-		}
+		break;
+	}
+	case 'x':
+	{
+		exit(0);
+	}
+	default:
+	{
+		cout << endl << "Incorrect input. Try Again." << endl;
+		cout << "Press any key to restart." << endl;
+		_getch();
+		system("cls");
+		main();
+	}
 	}
 	Record();
 	system("cls");
 	cout << "HIGHSCORES..." << endl << endl;
 	ifstream rec("record.txt");
 	cout << "=====================================" << endl;
-		while (!rec.eof())	//Вывод рекордов на экран
-		{
-			rec.getline(buf, 255);
-			cout << buf << endl << endl;
-		}
+	while (!rec.eof())	//Вывод рекордов на экран
+	{
+		rec.getline(buf, 255);
+		cout << buf << endl << endl;
+	}
 	rec.close();
 	cout << "=====================================" << endl;
 	cout << "Press '1' to exit." << endl;
 	cout << "Press '2' to restart." << endl;
 	cout << "Press 'e' to erase all records." << endl;
-		switch (_getch())
-			{
-			case '1':
-			{
-				break;
-			}
-			case '2':
-			{
-				system("cls");
-				Nt = 0;
-				gameOver = false;
-				main();
-			}
-			case 'e':
-			{
-				ofstream rec("record.txt");
-				rec << "\0";
-				rec.close();
+	switch (_getch())
+	{
+	case '1':
+	{
+		break;
+	}
+	case '2':
+	{
+		system("cls");
+		Nt = 0;
+		gameOver = false;
+		main();
+	}
+	case 'e':
+	{
+		ofstream rec("record.txt");
+		rec << "\0";
+		rec.close();
 
-				system("cls");
-				cout << "All records has erased.";
-				_getch();
-				system("cls");
-				Nt = 0;
-				gameOver = false;
-				main();
-			}
-		}
-	
+		system("cls");
+		cout << "All records has erased.";
+		_getch();
+		system("cls");
+		Nt = 0;
+		gameOver = false;
+		main();
+	}
+	}
+
 	return 0;
 	delete[] buf;
 }
