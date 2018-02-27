@@ -5,8 +5,8 @@
 using namespace std;
 
 bool gameOver;
-const int width = 16;
-const int height = 16;
+const int width = 10;
+const int height = 10;
 int x, y, Bx, By, scr = 0;
 int Tx[50], Ty[50];
 int Nt;
@@ -20,14 +20,14 @@ void Setup()
 	dir = STOP;
 	x = width / 2 - 1;
 	y = height / 2 - 1;
-	Bx = rand() % (width - 1);
+	Bx = rand() % width;
 	By = rand() % height;
 	scr = 0;
 }
 /*========================Победа====================*/
 void Win()
 {
-	if (scr == width*height)
+	if (scr == (width * height) - 1)
 	{
 		system("cls");
 		cout << "<3";
@@ -232,7 +232,7 @@ void Logic()
 		Nt++;
 	}
 	/*================Столкновение со стеной============*/
-	if (x > width - 2 || x == 0 || y > height - 1 || y < 0)
+	if (x > width - 1 || x == 0 || y > height - 1 || y < 0)
 	{
 		system("cls");
 		cout << "Game Over!" << endl;
