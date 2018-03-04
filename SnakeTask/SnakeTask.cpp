@@ -1,12 +1,12 @@
 #include <iostream>
 #include <conio.h>
+#include <windows.h>
+#include <fstream>
 using namespace std;
 
-<<<<<<< HEAD
-=======
 bool gameOver;
-const int width = 10;
-const int height = 10;
+const int width = 16;
+const int height = 16;
 int x, y, Bx, By, scr = 0;
 int Tx[50], Ty[50];
 int Nt;
@@ -20,14 +20,14 @@ void Setup()
 	dir = STOP;
 	x = width / 2 - 1;
 	y = height / 2 - 1;
-	Bx = rand() % width;
+	Bx = rand() % (width - 1);
 	By = rand() % height;
 	scr = 0;
 }
 /*========================Победа====================*/
 void Win()
 {
-	if (scr == (width * height) - 1)
+	if (scr == width*height)
 	{
 		system("cls");
 		cout << "<3";
@@ -232,7 +232,7 @@ void Logic()
 		Nt++;
 	}
 	/*================Столкновение со стеной============*/
-	if (x > width - 1 || x == 0 || y > height - 1 || y < 0)
+	if (x > width - 2 || x == 0 || y > height - 1 || y < 0)
 	{
 		system("cls");
 		cout << "Game Over!" << endl;
@@ -344,11 +344,99 @@ void Record()
 
 }
 /*===================Главная Функция================*/
->>>>>>> master
 int main()
 {
-	char *buf = new char[255];
-	cout << "Enter your word: ";
-	cin.getline(buf, 255);
+
+	setlocale(LC_ALL, "Russian");
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+	cout << "Hello! It's Snake!" << endl;
+	cout << "Choose the field-style:" << endl;
+	cout << "1 - Standart." << endl;
+	cout << "2 - Endless." << endl << endl;
+	cout << "Press 'x' to exit." << endl;
+	switch (_getch())
+	{
+	case '1':
+	{
+		Setup();
+		while (!gameOver)
+		{
+			Draw();
+			Input();
+			Logic();
+		}
+		break;
+
+	}
+	case '2':
+	{
+		Setup();
+		while (!gameOver)
+		{
+			Draw();
+			Input();
+			EndlessLogic();
+		}
+		break;
+	}
+	case 'x':
+	{
+		exit(0);
+	}
+	default:
+	{
+		cout << endl << "Incorrect input. Try Again." << endl;
+		cout << "Press any key to restart." << endl;
+		_getch();
+		system("cls");
+		main();
+	}
+	}
+	Record();
+	system("cls");
+	cout << "HIGHSCORES..." << endl << endl;
+	ifstream rec("record.txt");
+	cout << "=====================================" << endl;
+	while (!rec.eof())	//Вывод рекордов на экран
+	{
+		rec.getline(buf, 255);
+		cout << buf << endl << endl;
+	}
+	rec.close();
+	cout << "=====================================" << endl;
+	cout << "Press '1' to exit." << endl;
+	cout << "Press '2' to restart." << endl;
+	cout << "Press 'e' to erase all records." << endl;
+	switch (_getch())
+	{
+	case '1':
+	{
+		break;
+	}
+	case '2':
+	{
+		system("cls");
+		Nt = 0;
+		gameOver = false;
+		main();
+	}
+	case 'e':
+	{
+		ofstream rec("record.txt");
+		rec << "\0";
+		rec.close();
+
+		system("cls");
+		cout << "All records has erased.";
+		_getch();
+		system("cls");
+		Nt = 0;
+		gameOver = false;
+		main();
+	}
+	}
+
 	return 0;
+	delete[] buf;
 }
