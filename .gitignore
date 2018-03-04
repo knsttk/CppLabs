@@ -1,0 +1,6 @@
+#folder ".git"
+.git/
+
+Debug/
+
+.vs/
