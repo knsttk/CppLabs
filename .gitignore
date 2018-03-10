@@ -4,3 +4,6 @@
 Debug/
 
 .vs/
+#Unused flies
+*.vcxproj.filters
+*.sln
