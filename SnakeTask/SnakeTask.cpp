@@ -4,15 +4,14 @@
 #include <fstream>
 using namespace std;
 
-bool gameOver;
+bool gameover;
 const int width = 16;
 const int height = 16;
 int x, y, Bx, By, scr = 0;
 int Tx[50], Ty[50];
 int Nt;
-char *buf = new char[255];
-enum eDirection { STOP = 0, LEFT, RIGHT, UP, DOWN };
-eDirection dir;
+
+
 /*========================Основа====================*/
 void Setup()
 {
@@ -255,7 +254,8 @@ void Logic()
 /*==============Логика с бесконечной картой=========*/
 void EndlessLogic()
 {
-
+	enum eDirection { STOP = 0, LEFT, RIGHT, UP, DOWN };
+	eDirection dir;
 	int Prx = Tx[0];
 	int Pry = Ty[0];
 	int Pr2x, Pr2y;
@@ -335,7 +335,7 @@ void EndlessLogic()
 /*===================Таблица рекордов===============*/
 void Record()
 {
-
+	char *buf = new char[255];
 	cout << "Enter your name: " << endl;
 	cin.getline(buf, 255);
 	ofstream rec("record.txt", ios::app);
