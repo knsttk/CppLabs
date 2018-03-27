@@ -4,6 +4,10 @@
 Debug/
 
 .vs/
+
 #Unused flies
+
 *.vcxproj.filters
 *.sln
+*.db
+*.opendb

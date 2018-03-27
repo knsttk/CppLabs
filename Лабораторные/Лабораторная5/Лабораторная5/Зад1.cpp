@@ -1,7 +1,6 @@
 #include <iostream>
 #include <math.h>
 #include <conio.h>
-#include <cctype>
 using namespace std;
 
 class Figure {
@@ -152,9 +151,19 @@ void Figure::Size()
 		cin >> k;
 		rad = rad*k;
 	}
-	if (type == 2)
+	if (type == 2 || type == 3)
 	{
-		cout << "Коэффициент изменения расстояния до вершины квадрата= ";
+		cout << "Коэффициент изменения расстояния до вершины ";
+
+		if(type == 2)
+		{
+			cout << "квадрата= ";
+		}
+		if (type==3)
+		{
+			cout << "прямоугольника= ";
+		}
+		
 		cout << endl;
 		cin >> k;
 		vecx = vecx - centerx;
@@ -164,24 +173,11 @@ void Figure::Size()
 		vecx = vecx + centerx;
 		vecy = vecy + centery;
 	}
-	if (type == 3)
-	{
-		cout << "Коэффициент изменения расстояния до вершины прямоугольника= ";
-		cout << endl;
-		cin >> k;
-		vecx = vecx - centerx;
-		vecy = vecy - centery;
-		vecx = vecx*k;
-		vecy = vecy*k;
-		vecx = vecx + centerx;
-		vecy = vecy + centery;
-	}
-	if (type != 1)
-	{
+	
 		Separate();
 		Output();
 		Separate();
-	}
+
 }
 void Figure::Turn()
 {
