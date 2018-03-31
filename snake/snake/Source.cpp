@@ -7,23 +7,19 @@ class Snake
 {
 public:
 	enum eDirection { STOP = 0, LEFT, RIGHT, UP, DOWN };
-	eDirection dir;
-	bool gameOver;
+	
+	char *buf = new char[255];
 	int Nt;
 	const int width = 16;
 	const int height = 16;
-	int x, y, Bx, By, scr = 0;
 	int Tx[50], Ty[50];
-	void Setup()
-	{
-		gameOver = false;
-		dir = STOP;
-		x = width / 2 - 1;
-		y = height / 2 - 1;
-		Bx = rand() % (width - 1);
-		By = rand() % height;
-		scr = 0;
-	}
+	bool gameOver = false;
+	eDirection dir = STOP;
+		int x = width / 2 - 1;
+		int y = height / 2 - 1;
+		int Bx = rand() % (width - 1);
+		int By = rand() % height;
+		int scr = 0;
 	void Input()
 	{
 		if (_kbhit())
@@ -233,10 +229,6 @@ public:
 		}
 
 	}
-};
-class Game
-{
-public:
 	void Draw()
 	{
 		system("cls");
@@ -332,7 +324,7 @@ public:
 	}
 	void Record()
 	{
-		char *buf = new char[255];
+		
 		cout << "Enter your name: " << endl;
 		cin.getline(buf, 255);
 		ofstream rec("record.txt", ios::app);
@@ -342,10 +334,9 @@ public:
 	}
 };
 /*===================Главная Функция================*/
-int main(bool gameOver, char *buf, void Win(), int Nt)
+int main()
 {
 	Snake zmeyka;
-	Game see;
 	setlocale(LC_ALL, "Russian");
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
@@ -358,10 +349,12 @@ int main(bool gameOver, char *buf, void Win(), int Nt)
 	{
 	case '1':
 	{
-		zmeyka.Setup();
-		while (!gameOver)
+		
+		while (!zmeyka.gameOver)
 		{
-			see.Draw();
+			
+			zmeyka.Draw();
+			
 			zmeyka.Input();
 			zmeyka.Logic();
 		}
@@ -370,10 +363,9 @@ int main(bool gameOver, char *buf, void Win(), int Nt)
 	}
 	case '2':
 	{
-		zmeyka.Setup();
-		while (!gameOver)
+		while (!zmeyka.gameOver)
 		{
-			see.Draw();
+			zmeyka.Draw();
 			zmeyka.Input();
 			zmeyka.EndlessLogic();
 		}
@@ -385,22 +377,24 @@ int main(bool gameOver, char *buf, void Win(), int Nt)
 	}
 	default:
 	{
-		cout << endl << "Incorrect input. Try Again." << endl;
-		cout << "Press any key to restart." << endl;
-		_getch();
-		system("cls");
-		main(gameOver, buf, Win, Nt);
+
+			cout << endl << "Incorrect input. Try Again." << endl;
+			cout << "Press any key to restart." << endl;
+			_getch();
+			system("cls");
+			main();
+		
 	}
 	}
-	see.Record();
+	zmeyka.Record();
 	system("cls");
 	cout << "HIGHSCORES..." << endl << endl;
 	ifstream rec("record.txt");
 	cout << "=====================================" << endl;
 	while (!rec.eof())	
 	{
-		rec.getline(buf, 255);
-		cout << buf << endl << endl;
+		rec.getline(zmeyka.buf, 255);
+		cout << zmeyka.buf << endl << endl;
 	}
 	rec.close();
 	cout << "=====================================" << endl;
@@ -416,9 +410,9 @@ int main(bool gameOver, char *buf, void Win(), int Nt)
 	case '2':
 	{
 		system("cls");
-		Nt = 0;
-		gameOver = false;
-		main(gameOver, buf, Win, Nt);
+		zmeyka.Nt = 0;
+		zmeyka.gameOver = false;
+		main();
 	}
 	case 'e':
 	{
@@ -430,14 +424,14 @@ int main(bool gameOver, char *buf, void Win(), int Nt)
 		cout << "All records has erased.";
 		_getch();
 		system("cls");
-		Nt = 0;
-		gameOver = false;
-		main(gameOver, buf, Win, Nt);
+		zmeyka.Nt = 0;
+		zmeyka.gameOver = false;
+		main();
 	}
 	}
 
 	return 0;
-	delete[] buf;
+	delete[] zmeyka.buf;
 }
 
 /*========================Основа====================*/
