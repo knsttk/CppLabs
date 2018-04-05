@@ -8,6 +8,7 @@ class Figure {
 	double rad;
 	int type;
 public:
+	void Menu();
 	void Choose();
 	void Input();
 	void Move();
@@ -21,11 +22,10 @@ void main()
 	setlocale(LC_ALL, "Russian");
 	Figure geom;
 	system("cls");
+
 	geom.Choose();
 	geom.Input();
-	geom.Move();
-	geom.Size();
-	geom.Turn();
+	geom.Menu();
 	_getch();
 }
 void Figure:: Separate()
@@ -44,17 +44,14 @@ void Figure::Input()
 		case '1' :
 		{
 			cout << endl; cout << "Введите параметры круга" << endl;
-			cout << "ЦентрХ=";
+			cout << "ЦентрХ = ";
 			cin >> centerx;
-			cout << "ЦентрY=";
+			cout << "ЦентрY = ";
 			cin >> centery;
 			cout << "r=";
 			cin >> rad;
 			cout << endl;
 			type = 1;
-			Separate();
-			Output();
-			Separate();
 			break;
 		}
 		case '2' :
@@ -63,17 +60,14 @@ void Figure::Input()
 			cout << "Координаты центра: " << endl;
 			cout << "ЦентрХ = ";
 			cin >> centerx;
-			cout << "ЦентрY=";
+			cout << "ЦентрY = ";
 			cin >> centery;
 			cout << "Вектор от центра до вершины:" << endl;
-			cout << " ax=";
+			cout << "vecx= ";
 			cin >> vecx;
-			cout << " ay=";
+			cout << "vecy= ";
 			cin >> vecy;
 			type = 2;
-			Separate();
-			Output();
-			Separate();
 			break;
 		}
 		case '3' :
@@ -82,17 +76,15 @@ void Figure::Input()
 			cout << "Координаты центра:" << endl;
 			cout << "ЦентрХ = ";
 			cin >> centerx;
-			cout << "ЦентрY= ";
+			cout << "ЦентрY = ";
 			cin >> centery;
 			cout << "Вектор от центра до вершины:\n";
-			cout << " ax=";
+			cout << "vecx= ";
 			cin >> vecx;
-			cout << " ay=";
+			cout << "vecy= ";
 			cin >> vecy;
 			type = 3;
-			Separate();
-			Output();
-			Separate();
+			
 			break;
 		}
 		default :
@@ -133,13 +125,13 @@ void Figure::Move()
 	int Movex, Movey;
 	cout << "Введите координаты смещения фигуры ";
 	cout << endl;
-	cout << "Смещение по X= "; cin >> Movex;
-	cout << "Смещение по Y= "; cin >> Movey;
+	cout << "Смещение по X= "; 
+	cin >> Movex;
+	cout << "Смещение по Y= "; 
+	cin >> Movey;
 	centerx = centerx + Movex; centery = centery + Movey;
 	vecx = vecx + Movex; vecy = vecy + Movey;
-	Separate();
-	Output();
-	Separate();
+	
 }
 void Figure::Size()
 {
@@ -174,9 +166,7 @@ void Figure::Size()
 		vecy = vecy + centery;
 	}
 	
-		Separate();
-		Output();
-		Separate();
+		
 
 }
 void Figure::Turn()
@@ -204,7 +194,56 @@ void Figure::Turn()
 			vecx = axn + centerx;
 			vecy = ayn + centery;
 		}
+		
+	}
+void Figure::Menu()
+{
+	cout << "Выберите действие:" << endl;
+	cout << "1 - Изменение размера" << endl;
+	cout << "2 - Сдвиг Фигуры" << endl;
+	cout << "3 - Поворот фигуры" << endl;
+	cout << "4 - Текущие параметры фигуры" << endl;
+	cout << "X - Выход" << endl;
+	switch (_getch())
+	{
+	case '1' :
+	{
+		system("cls");
+		Size();
+		Menu();
+	}
+	case '2' :
+	{
+		system("cls");
+		Move();
+		Menu();
+	}
+	case '3':
+	{
+		system("cls");
+		Turn();
+		Menu();
+	}
+	case '4':
+	{
+		system("cls");
 		Separate();
 		Output();
 		Separate();
+		Menu();
 	}
+	case 'x':
+	{
+		system("cls");
+		exit(0);
+	}
+	default:
+	{
+		cout << "Incorrect input. Try Again." << endl;
+		_getch();
+		system("cls");
+		Menu();
+	}
+		break;
+	}
+}

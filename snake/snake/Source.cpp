@@ -6,20 +6,21 @@ using namespace std;
 class Snake
 {
 public:
-	enum eDirection { STOP = 0, LEFT, RIGHT, UP, DOWN };
 	
+	enum motion { STOP = 0, LEFT, RIGHT, UP, DOWN };
 	char *buf = new char[255];
 	int Nt;
 	const int width = 16;
 	const int height = 16;
 	int Tx[50], Ty[50];
 	bool gameOver = false;
-	eDirection dir = STOP;
-		int x = width / 2 - 1;
-		int y = height / 2 - 1;
-		int Bx = rand() % (width - 1);
-		int By = rand() % height;
-		int scr = 0;
+	motion dir = STOP;
+	int x = width / 2 - 1;
+	int y = height / 2 - 1;
+	int Bx = rand() % (width - 1);
+	int By = rand() % height;
+	int scr = 0;
+	
 	void Input()
 	{
 		if (_kbhit())
@@ -352,9 +353,7 @@ int main()
 		
 		while (!zmeyka.gameOver)
 		{
-			
 			zmeyka.Draw();
-			
 			zmeyka.Input();
 			zmeyka.Logic();
 		}
