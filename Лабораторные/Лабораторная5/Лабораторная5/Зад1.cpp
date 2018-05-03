@@ -5,20 +5,11 @@ using namespace std;
 class Figure
 {
 public:
-
-	virtual void Create()
-	{
-
-	}
 	virtual void Move()
 	{
 
 	}
-	virtual void Size()
-	{
-
-	}
-	virtual void Output()
+	virtual void Size(short choose)
 	{
 
 	}
@@ -26,21 +17,23 @@ public:
 	{
 
 	}
-protected:
-	int x, y, rad, movex, movey, drad;
 };
 class Circle : public Figure
 {
-	void Create()
+public:
+	int  rad, drad, x, y, movex, movey;
+
+	void Size(short choose, Circle &obj)
 	{
-		cout << "Введите координаты центра: " << endl;
-		cout << "Центр X = ";
-		cin >> x;
-		cout << "Центр Y = ";
-		cin >> y;
-		cout << "Введите радиус" << endl;
-		cout << "Радиус = ";
-		cin >> rad;
+		if (choose == 1)
+		{
+			rad += drad;
+			cout << rad << "+" << drad << endl;
+		}
+		if (choose == 2)
+		{
+			rad -= drad;
+		}
 	}
 	void Move()
 	{
@@ -48,48 +41,6 @@ class Circle : public Figure
 		cin >> movey;
 		x += movex;
 		y += movey;
-	}
-	void Size()
-	{
-		bool temp;
-		cout << "Увеличить или уменьшить фигуру?" << endl;
-		cout << "1 - Увеличить." << endl;
-		cout << "2 - Уменьшить." << endl;
-		switch (_getch())
-		{
-		case '1':
-		{
-			cout << "Увеличить на: ";
-			cin >> drad;
-			rad += drad;
-			break;
-		}
-		case'2':
-		{
-			temp = false;
-			while (temp == false)
-			{
-				cout << "Уменьшить на: ";
-				cin >> drad;
-				if (drad > rad)
-				{
-					cout << "Некорректный ввод, уменьшаемая величина должна быть больше значения уменьшения." << endl;
-					continue;
-				}
-				rad -= drad;
-				temp = true;
-			}
-			break;
-		}
-		default:
-		{
-			cout << "Некорректный ввод. Попробуйте ещё раз." << endl;
-			_getch();
-			system("cls");
-			Size();
-		}
-		break;
-		}
 	}
 	void Output()
 	{
@@ -102,13 +53,8 @@ class Square : public Figure
 public:
 	void Create()
 	{
-		cout << "Введите координаты центра: " << endl;
-		cout << "Центр X = ";
 		cin >> x;
-		cout << "Центр Y = ";
 		cin >> y;
-		cout << "Введите длину стороны: " << endl;
-		cout << "Длина стороны = ";
 		cin >> edge;
 	}
 
@@ -163,11 +109,11 @@ public:
 	}
 	void Turn()
 	{
-		double degree, co, si, axn1, axn2, ayn1, ayn2, axn, ayn;
+		double degree, co, si, axn1, axn2, ayn1, ayn2, axn, ayn, povorot;
 
 		cout << "Введите угол поворота фигуры: ";
-		cin >> degree;
-		degree = degree* 3.1415 / 180;
+		cin >> povorot;
+		degree = povorot * 3.1415 / 180;
 
 		edge = edge - x;
 		edge = edge - y;
@@ -181,6 +127,8 @@ public:
 		ayn = ayn1 + ayn2;
 		edge = axn + x;
 		edge = ayn + y;
+
+		cout << "Фигура повернута на " << povorot << " градусов." << endl;
 	}
 	void Output()
 	{
@@ -193,15 +141,9 @@ class Rectan : public Figure
 public:
 	void Create()
 	{
-		cout << "Введите координаты центра: " << endl;
-		cout << "Центр X = ";
 		cin >> x;
-		cout << "Центр Y = ";
 		cin >> y;
-		cout << "Введите ширину:" << endl;
-		cout << "Ширина = ";
 		cin >> width;
-		cout << "Введите длину:" << endl;
 		cin >> height;
 		x1 = x - width / 2;
 		x2 = x - width / 2;
@@ -347,11 +289,11 @@ public:
 	}
 	void Turn()
 	{
-		double degree, co, si, axn1, axn2, ayn1, ayn2, axn, ayn;
+		double degree, co, si, axn1, axn2, ayn1, ayn2, axn, ayn, povorot;
 
 		cout << "Введите угол поворота фигуры: ";
-		cin >> degree;
-		degree = degree* 3.1415 / 180;
+		cin >> povorot;
+		degree = povorot* 3.1415 / 180;
 
 		swidth = swidth - x;
 		sheight = sheight - y;
@@ -365,6 +307,7 @@ public:
 		ayn = ayn1 + ayn2;
 		swidth = axn + x;
 		sheight = ayn + y;
+		cout << "Фигура повернута на " << povorot << " градусов." << endl;
 	}
 
 	void Output()
@@ -377,15 +320,16 @@ int main()
 {
 	setlocale(LC_ALL, "Russian");
 	Figure **F = new Figure *[5];
-	int next = -1;
 	Circle *c = new Circle;
+	Circle obj;
 	Figure *cir = c;
 	Square *s = new Square;
 	Figure *sq = s;
 	Rectan *r = new Rectan;
 	Figure *rect = r;
 	bool check = false;
-	int type;
+	short type;
+	bool temp, temp2;
 	while (1)
 	{
 		while (!check)
@@ -400,27 +344,24 @@ int main()
 			case '1':
 			{
 				type = 1;
-				next++;
 				cir = c;
-				F[next] = cir;
+				F[type] = cir;
 				check = true;
 				break;
 			}
 			case '2':
 			{
 				type = 2;
-				next++;
 				sq = s;
-				F[next] = sq;
+				F[type] = sq;
 				check = true;
 				break;
 			}
 			case '3':
 			{
 				type = 3;
-				next++;
 				rect = r;
-				F[next] = rect;
+				F[type] = rect;
 				check = true;
 				break;
 			}
@@ -432,12 +373,30 @@ int main()
 			}
 			}
 		}
-		F[next]->Create();
+		if (type == 1)
+			{
+				cout << "Введите координаты: " << endl;
+				cout << "Центр X: ";
+				cin >> obj.x;
+				cout << "Центр Y: ";
+				cin >> obj.y;
+				cout << "Введите радиус: ";
+				cin >> obj.drad;
+			}
+		if (type == 2)
+			{
+				cout << "Введите координаты центра по X, Y, и Длину стороны: " << endl;
+				
+			}
+		if (type == 3)
+			{
+				cout << "Введите координаты центра по X, Y, Ширину, Длину: " << endl;
+				
+			}
 		int type2;
 		bool check1 = false;
 		while (!check1)
 		{
-
 			cout << "==================================" << endl;
 			cout << "Выберите действие:" << endl;
 			cout << "1 - Изменить размер." << endl;
@@ -452,8 +411,46 @@ int main()
 			case'1':
 			{
 				type2 = 1;
-				F[next]->Size();
-				F[next]->Output();
+				short choose;
+				cout << "Увеличить или уменьшить фигуру?" << endl;
+				temp = false;
+				temp2 = false;
+				while (temp == false)
+				{
+					cout << "1 - Увеличить." << endl;
+					cout << "2 - Уменьшить." << endl;
+					cin >> choose;
+					if (choose == 1)
+					{
+						cout << "Увеличить на: ";
+						cin >> obj.drad;
+						F[type]->Size(choose, obj);
+						temp = true;
+						break;
+					}
+					if (choose == 2)
+					{
+						while(temp2 == false)
+						{
+							cout << "Уменьшить на: ";
+							cin >> obj.drad;
+							if (obj.drad > obj.rad)
+							{
+								cout << "Некорректный ввод, уменьшаемая величина должна быть больше значения уменьшения." << endl;
+								continue;
+							}
+							F[type]->Size(choose, obj);
+							temp2 = true;
+						}
+						break;
+					}
+					else
+					{
+						cout << "Некорректный ввод. Введите ещё раз." << endl;
+						continue;
+					}
+				}
+				obj.Output();
 				break;
 			}
 			case'2':
@@ -461,8 +458,7 @@ int main()
 				type2 = 2;
 				cout << "Сдвинуть на: " << endl;
 				cout << "По X и Y ";
-				F[next]->Move();
-				F[next]->Output();
+				F[type]->Move();
 				break;
 			}
 			case'3':
@@ -476,13 +472,13 @@ int main()
 				else
 				{
 					cout << "Повернуть на: " << endl;
-					F[next]->Turn();
+					F[type]->Turn();
 					break;
 				}
 			}
 			case '4':
 			{
-				F[next]->Output();
+				obj.Output();
 				break;
 			}
 			case'5':

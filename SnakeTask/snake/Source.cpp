@@ -9,8 +9,8 @@ class Snake
 public:
 	char *buf = new char[255];
 	bool gameOver;
-	const int width = 16;
-	const int height = 16;
+	const int width = 10;
+	const int height = 1;
 	int x = width / 2;
 	int y = height / 2;
 	int scr;
