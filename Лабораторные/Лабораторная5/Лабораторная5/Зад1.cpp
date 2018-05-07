@@ -2,390 +2,188 @@
 #include <conio.h>
 using namespace std;
 
+struct  Output
+{
+	const double *x, *y, *rad, *degree, *height, *sizedge,  *width;
+
+};
 class Figure
 {
 public:
-
-	virtual void Create()
+	virtual void Move(int movex, int movey)
 	{
 
 	}
-	virtual void Move()
+	virtual void Size(short choose, short choose2, double change, double change2)
 	{
 
 	}
-	virtual void Size()
+	virtual void Turn(int degree)
 	{
 
 	}
-	virtual void Output()
-	{
-
-	}
-	virtual void Turn()
-	{
-
-	}
-protected:
-	int x, y, rad, movex, movey, drad;
 };
 class Circle : public Figure
 {
-	void Create()
+public:
+	double  rad, change, x, y;
+	Circle(double x, double y, double rad)
 	{
-		cout << "Введите координаты центра: " << endl;
-		cout << "Центр X = ";
-		cin >> x;
-		cout << "Центр Y = ";
-		cin >> y;
-		cout << "Введите радиус" << endl;
-		cout << "Радиус = ";
-		cin >> rad;
+		this->x = x;
+		this->y = y;
+		this->rad = rad;
 	}
-	void Move()
+	void Size(short choose, double change)
 	{
-		cin >> movex;
-		cin >> movey;
+		if (choose == 1)
+		{
+			rad += change;
+			
+		}
+		if (choose == 2)
+		{
+			rad -= change;
+		}
+	}
+	void Move(int movex, int movey)
+	{
 		x += movex;
 		y += movey;
 	}
-	void Size()
+	Output output()
 	{
-		bool temp;
-		cout << "Увеличить или уменьшить фигуру?" << endl;
-		cout << "1 - Увеличить." << endl;
-		cout << "2 - Уменьшить." << endl;
-		switch (_getch())
-		{
-		case '1':
-		{
-			cout << "Увеличить на: ";
-			cin >> drad;
-			rad += drad;
-			break;
-		}
-		case'2':
-		{
-			temp = false;
-			while (temp == false)
-			{
-				cout << "Уменьшить на: ";
-				cin >> drad;
-				if (drad > rad)
-				{
-					cout << "Некорректный ввод, уменьшаемая величина должна быть больше значения уменьшения." << endl;
-					continue;
-				}
-				rad -= drad;
-				temp = true;
-			}
-			break;
-		}
-		default:
-		{
-			cout << "Некорректный ввод. Попробуйте ещё раз." << endl;
-			_getch();
-			system("cls");
-			Size();
-		}
-		break;
-		}
-	}
-	void Output()
-	{
-		cout << "Центр x = " << x << " Центр y = " << y << " Радиус = " << rad << endl;
+		Output o;
+		o.x = &(this->x);
+		o.y = &(this->y);
+		o.rad = &(this->rad);
+		return o;
 	}
 };
 class Square : public Figure
 {
-	int x, y, movex, movey, edge, sizedge;
+	
 public:
-	void Create()
+	double x, y, sizedge, degree;
+	Square(double x, double y, double sizedge)
 	{
-		cout << "Введите координаты центра: " << endl;
-		cout << "Центр X = ";
-		cin >> x;
-		cout << "Центр Y = ";
-		cin >> y;
-		cout << "Введите длину стороны: " << endl;
-		cout << "Длина стороны = ";
-		cin >> edge;
+		this->x = x;
+		this->y = y;
+		this->sizedge = sizedge;
 	}
+	
+	void Size(short choose, double change)
+	{
+		if (choose == 1)
+		{
+			sizedge += change;
 
-	void Move()
-	{
-		cin >> movex;
-		cin >> movey;
-		x += movex;
-		y += movey;
-	}
-	void Size()
-	{
-		bool temp;
-		cout << "Увеличить или уменьшить фигуру?" << endl;
-		cout << "1 - Увеличить." << endl;
-		cout << "2 - Уменьшить" << endl;
-		switch (_getch())
-		{
-		case '1':
-		{
-			cout << "Увеличить на: ";
-			cin >> sizedge;
-			edge += sizedge;
-			break;
 		}
-		case'2':
+		if (choose == 2)
 		{
-			temp = false;
-			while (temp == false)
-			{
-				cout << "Уменьшить на: ";
-				cin >> sizedge;
-				if (sizedge > edge)
-				{
-					cout << "Некорректный ввод, уменьшаемая величина должна быть больше значения уменьшения." << endl;
-					continue;
-				}
-				edge -= sizedge;
-				temp = true;
-			}
-			break;
-		}
-		default:
-		{
-			cout << "Некорректный ввод. Попробуйте ещё раз." << endl;
-			_getch();
-			system("cls");
-			Size();
-		}
-		break;
+			sizedge -= change;
 		}
 	}
-	void Turn()
+	void Move(int movex, int movey)
 	{
-		double degree, co, si, axn1, axn2, ayn1, ayn2, axn, ayn;
-
-		cout << "Введите угол поворота фигуры: ";
-		cin >> degree;
-		degree = degree* 3.1415 / 180;
-
-		edge = edge - x;
-		edge = edge - y;
-		co = cos(degree);
-		si = sin(degree);
-		axn1 = edge*co;
-		axn2 = edge*si;
-		axn = axn1 - axn2;
-		ayn1 = edge*si;
-		ayn2 = edge*co;
-		ayn = ayn1 + ayn2;
-		edge = axn + x;
-		edge = ayn + y;
+	x += movex;
+	y += movey;
 	}
-	void Output()
+	
+	void Turn(int degree)
 	{
-		cout << "Центр x = " << x << " Центр y = " << y << " Длина стороны = " << edge << endl;
+		this->degree = degree;
+	}
+	Output output()
+	{
+		Output o;
+		o.x = &(this->x);
+		o.y = &(this->y);
+		o.sizedge = &(this->sizedge);
+		return o;
 	}
 };
 class Rectan : public Figure
 {
-	int x, y, movex, movey, height, width, sheight, swidth, perim, x1, x2, y1, y2;
+	double x, y, movex, movey, height, width, change, change2, degree;
 public:
-	void Create()
+	Rectan(double x, double y, double height, double width)
 	{
-		cout << "Введите координаты центра: " << endl;
-		cout << "Центр X = ";
-		cin >> x;
-		cout << "Центр Y = ";
-		cin >> y;
-		cout << "Введите ширину:" << endl;
-		cout << "Ширина = ";
-		cin >> width;
-		cout << "Введите длину:" << endl;
-		cin >> height;
-		x1 = x - width / 2;
-		x2 = x - width / 2;
-		y1 = y - height / 2;
-		y2 = y - height / 2;
+		this->x = x;
+		this->y = y;
+		this->height = height;
+		this->width = width;
+	}
+	void Size(short choose, short choose2, double change, double change2)
+	{
+		if (choose == 1)
+		{
+			if (choose2 == 1)
+			{
+				width += change;
+			}
+			if (choose2 == 2)
+			{
+				height += change2;
+			}
+			if (choose2 == 3)
+			{
+				width += change;
+				height += change;
+			}
+		}
+		if (choose == 2)
+		{
+			if (choose2 == 1)
+			{
+				width += change;
+			}
+			if (choose2 == 2)
+			{
+				height += change2;
+			}
+			if (choose2 == 3)
+			{
+				width += change;
+				height += change;
+			}
+		}
 	}
 	void Move()
 	{
-		cin >> movex;
-		cin >> movey;
 		x += movex;
 		y += movey;
-		x1 += movex;
-		x2 += movex;
-		y1 += movey;
-		y2 += movey;
 	}
-	void Size()
+	void Turn(int degree)
 	{
-		cout << "1 - Увеличить размер." << endl;
-		cout << "2 - Уменьшить размер." << endl;
-		switch (_getch())
-		{
-		case '1':
-		{
-			cout << "1 - Увеличить ширину." << endl;
-			cout << "2 - Увеличить длину." << endl;
-			cout << "3 - Увеличить и ширину и длину." << endl;
-			switch (_getch())
-			{
-			case'1':
-			{
-				cout << "Увеличить ширину на ";
-				cin >> swidth;
-				width += swidth;
-				break;
-			}
-			case '2':
-			{
-
-				cout << "Увеличить длину на ";
-				cin >> sheight;
-				height += sheight;
-				break;
-
-			}
-			case '3':
-			{
-				cout << "Увеличить и ширину и длину на";
-				cin >> sheight;
-				height += sheight;
-				width += swidth;
-				break;
-			}
-			default:
-			{
-				cout << "Некорректный ввод. Попробуйте ещё раз." << endl;
-				_getch();
-				system("cls");
-				Size();
-			}
-			}
-			break;
-		}
-		case'2':
-		{
-			bool temp;
-			cout << "1 - Уменьшить ширину." << endl;
-			cout << "2 - Уменьшить длину." << endl;
-			cout << "3 - Уменьшить и ширину и длину." << endl;
-			switch (_getch())
-			{
-			case'1':
-			{
-				temp = false;
-				while (temp == false)
-				{
-					cout << "Уменьшить ширину на ";
-					cin >> swidth;
-					if (swidth > width)
-					{
-						cout << "Некорректный ввод, уменьшаемая величина должна быть больше значения уменьшения." << endl;
-						continue;
-					}
-					width -= swidth;
-					temp = true;
-				}
-				break;
-			}
-			case '2':
-			{
-				temp = false;
-				while (temp == false)
-				{
-					cout << "Уменьшить длину на ";
-					cin >> sheight;
-					if (sheight > height)
-					{
-						cout << "Некорректный ввод, уменьшаемая величина должна быть больше значения уменьшения." << endl;
-						continue;
-					}
-					height -= sheight;
-					temp = true;
-				}
-				break;
-			}
-			case '3':
-			{
-				temp = false;
-				while (temp == false)
-				{
-					cout << "Уменьшить и ширину и длину на ";
-
-					cin >> sheight;
-					if (sheight > height || swidth > width)
-					{
-						cout << "Некорректный ввод, уменьшаемая величина должна быть больше значения уменьшения." << endl;
-						continue;
-					}
-					height -= sheight;
-					width -= swidth;
-					temp = true;
-				}
-				break;
-			}
-			default:
-			{
-				cout << "Некорректный ввод. Попробуйте ещё раз." << endl;
-				_getch();
-				Size();
-			}
-			}
-		}
-		default:
-		{
-			cout << "Некорректный ввод. Попробуйте ещё раз." << endl;
-			_getch();
-			system("cls");
-			Size();
-		}
-		break;
-		}
+		this->degree = degree;
 	}
-	void Turn()
+	Output output()
 	{
-		double degree, co, si, axn1, axn2, ayn1, ayn2, axn, ayn;
-
-		cout << "Введите угол поворота фигуры: ";
-		cin >> degree;
-		degree = degree* 3.1415 / 180;
-
-		swidth = swidth - x;
-		sheight = sheight - y;
-		co = cos(degree);
-		si = sin(degree);
-		axn1 = swidth*co;
-		axn2 = sheight*si;
-		axn = axn1 - axn2;
-		ayn1 = swidth*si;
-		ayn2 = sheight*co;
-		ayn = ayn1 + ayn2;
-		swidth = axn + x;
-		sheight = ayn + y;
-	}
-
-	void Output()
-	{
-		cout << "Центр x = " << x << " Центр y = " << y << " Длина = " << height << " Ширина = " << width << endl;
-
+		Output o;
+		o.x = &(this->x);
+		o.y = &(this->y);
+		o.width = &(this->width);
+		o.height = &(this->height);
+		return o;
 	}
 };
+
 int main()
 {
 	setlocale(LC_ALL, "Russian");
 	Figure **F = new Figure *[5];
-	int next = -1;
-	Circle *c = new Circle;
+	Circle *c = new Circle(0, 0 ,0);
 	Figure *cir = c;
-	Square *s = new Square;
+	Square *s = new Square(0, 0, 0);
 	Figure *sq = s;
-	Rectan *r = new Rectan;
+	Rectan *r = new Rectan(0, 0, 0, 0);
 	Figure *rect = r;
 	bool check = false;
-	int type;
+	double  x, y, rad, edge, sizedge, movex, movey, height, width, degree;
+	short type;
+	
+	bool temp, temp2;
+	Output rez;
 	while (1)
 	{
 		while (!check)
@@ -400,27 +198,24 @@ int main()
 			case '1':
 			{
 				type = 1;
-				next++;
 				cir = c;
-				F[next] = cir;
+				F[type] = cir;
 				check = true;
 				break;
 			}
 			case '2':
 			{
 				type = 2;
-				next++;
 				sq = s;
-				F[next] = sq;
+				F[type] = sq;
 				check = true;
 				break;
 			}
 			case '3':
 			{
 				type = 3;
-				next++;
 				rect = r;
-				F[next] = rect;
+				F[type] = rect;
 				check = true;
 				break;
 			}
@@ -432,12 +227,49 @@ int main()
 			}
 			}
 		}
-		F[next]->Create();
-		int type2;
+		if (type == 1)
+		{
+			cout << "Введите координаты: " << endl;
+			cout << "Центр X: ";
+			cin >> x;
+			cout << "Центр Y: ";
+			cin >> y;
+			cout << "Введите радиус: ";
+			cin >> rad;
+			*c = Circle(x, y, rad);
+			rez = c->output();
+		}
+		if (type == 2)
+		{
+			cout << "Введите координаты: " << endl;
+			cout << "Центр X: ";
+			cin >> x;
+			cout << "Центр Y: ";
+			cin >> y;
+			cout << "Введите длину стороны: ";
+			cin >> sizedge;
+			*s = Square(x, y, sizedge);
+			rez = s->output();
+
+		}
+		if (type == 3)
+		{
+			cout << "Введите координаты: " << endl;
+			cout << "Центр X: ";
+			cin >> x;
+			cout << "Центр Y: ";
+			cin >> y;
+			cout << "Введите ширину: ";
+			cin >> width;
+			cout << "Введите длину: ";
+			cin >> height;
+			*r = Rectan(x, y, width, height);
+			rez = r->output();
+		}
 		bool check1 = false;
 		while (!check1)
 		{
-
+			
 			cout << "==================================" << endl;
 			cout << "Выберите действие:" << endl;
 			cout << "1 - Изменить размер." << endl;
@@ -449,25 +281,206 @@ int main()
 			cout << "==================================" << endl;
 			switch (_getch())
 			{
+				
 			case'1':
 			{
-				type2 = 1;
-				F[next]->Size();
-				F[next]->Output();
+				
+				cout << "Увеличить или уменьшить фигуру?" << endl;
+				temp = false;
+				temp2 = false;
+				while (temp == false)
+				{
+					short choose, choose2;
+					double change = 0;
+					double change2 = 0;
+					if (type == 1 || type == 2)
+					{
+						cout << "1 - Увеличить." << endl;
+						cout << "2 - Уменьшить." << endl;
+
+						switch (_getch())
+						{
+						case '1':
+						{
+							choose = 1;
+							cout << "Увеличить на: ";
+							cin >> change;
+							F[type]->Size(choose, choose2, change, change2);
+							temp = true;
+							break;
+						}
+						case '2':
+						{
+							choose = 2;
+							while (temp2 == false)
+							{
+								cout << "Уменьшить на: ";
+								cin >> change;
+								if (change > rad)
+								{
+									cout << "Некорректный ввод, уменьшаемая величина должна быть больше значения уменьшения." << endl;
+									continue;
+								}
+								F[type]->Size(choose, choose2, change, change2);
+								temp2 = true;
+							}
+							break;
+						}
+						default:
+						{
+							cout << "Некорректный ввод. Введите ещё раз." << endl;
+							continue;
+						}
+						}
+					}
+					else
+					{
+						
+						cout << "1 - Увеличить размер." << endl;
+						cout << "2 - Уменьшить размер." << endl;
+						switch (_getch())
+						{
+						case '1':
+						{
+							choose = 1;
+							cout << "1 - Увеличить ширину." << endl;
+							cout << "2 - Увеличить длину." << endl;
+							cout << "3 - Увеличить и ширину и длину." << endl;
+							switch (_getch())
+							{
+							case'1':
+							{
+								choose2 = 1;
+								cout << "Увеличить ширину на ";
+								cin >> change;
+								F[type]->Size(choose, choose2, change, change2);
+								break;
+							}
+							case '2':
+							{
+								choose2 = 2;
+								cout << "Увеличить длину на ";
+								cin >> change2;
+								F[type]->Size(choose, choose2, change, change2);
+								break;
+
+							}
+							case '3':
+							{
+								choose2 = 3;
+								cout << "Увеличить и ширину и длину на";
+								cin >> change;
+								cin >> change2; 
+								F[type]->Size(choose, choose2, change, change2);
+								break;
+							}
+							default:
+							{
+								cout << "Некорректный ввод. Попробуйте ещё раз." << endl;
+								_getch();
+								system("cls");
+								F[type]->Size(change, choose2, change2, change2);
+							}
+							}
+							break;
+						}
+						case'2':
+						{
+							choose = 2;
+							bool temp;
+							cout << "1 - Уменьшить ширину." << endl;
+							cout << "2 - Уменьшить длину." << endl;
+							cout << "3 - Уменьшить и ширину и длину." << endl;
+							switch (_getch())
+							{
+							case'1':
+							{
+								choose2 = 1;
+								temp = false;
+								while (temp == false)
+								{
+									cout << "Уменьшить ширину на ";
+									cin >> change;
+									if (change > width)
+									{
+										cout << "Некорректный ввод, уменьшаемая величина должна быть больше значения уменьшения." << endl;
+										continue;
+									}
+									F[type]->Size(choose, choose2, change, change2);
+									temp = true;
+								}
+								break;
+							}
+							case '2':
+							{
+								choose2 = 2;
+								temp = false;
+								while (temp == false)
+								{
+									cout << "Уменьшить длину на ";
+									cin >> change2;
+									if (change > height)
+									{
+										cout << "Некорректный ввод, уменьшаемая величина должна быть больше значения уменьшения." << endl;
+										continue;
+									}
+									F[type]->Size(choose, choose2, change, change2);
+									temp = true;
+								}
+								break;
+							}
+							case '3':
+							{
+								choose2 = 3;
+								temp = false;
+								while (temp == false)
+								{
+									cout << "Уменьшить и ширину и длину на ";
+
+									cin >> change;
+									if (change > height || change > width)
+									{
+										cout << "Некорректный ввод, уменьшаемая величина должна быть больше значения уменьшения." << endl;
+										continue;
+									}
+									F[type]->Size(choose, choose2, change, change2);
+									temp = true;
+								}
+								break;
+							}
+							default:
+							{
+								cout << "Некорректный ввод. Попробуйте ещё раз." << endl;
+								_getch();
+								F[type]->Size(choose, choose2, change, change2);
+							}
+							}
+						}
+						default:
+						{
+							cout << "Некорректный ввод. Попробуйте ещё раз." << endl;
+							_getch();
+							system("cls");
+							F[type]->Size(choose, choose2, change, change2);
+						}
+						}
+					}
+				}
 				break;
+				
 			}
 			case'2':
 			{
-				type2 = 2;
-				cout << "Сдвинуть на: " << endl;
-				cout << "По X и Y ";
-				F[next]->Move();
-				F[next]->Output();
+				cout << "Сдвинуть фигуру: " << endl;
+				cout << "По X :";
+				cin >> movex;
+				cout << "По Y :";
+				cin >> movey;
+				F[type]->Move(movex, movey);
 				break;
 			}
 			case'3':
 			{
-				type2 = 3;
 				if (type == 1)
 				{
 					cout << endl << "Нет смысла вращать круг. Это же круг!" << endl << endl;
@@ -476,13 +489,26 @@ int main()
 				else
 				{
 					cout << "Повернуть на: " << endl;
-					F[next]->Turn();
+					cin >> degree;
+					F[type]->Turn(degree);
+					cout << "Фигура была повёрнута на " << degree << "градусов." << endl;
 					break;
 				}
 			}
-			case '4':
+			case'4':
 			{
-				F[next]->Output();
+				if (type == 1)
+				{
+					cout << "Центр x = " << *(rez.x) << " Центр y = " << *(rez.y) << " Радиус = " << *(rez.rad) << endl;
+				}
+				if (type == 2)
+				{
+					cout << "Центр x = " << *(rez.x) << " Центр y = " << *(rez.x) << " Длина стороны = " << *(rez.sizedge) << endl;
+				}
+				if (type == 3)
+				{
+				cout << "Центр x = " << *(rez.x) << " Центр y = " << *(rez.y)  << " Длина = " << *(rez.height) << " Ширина = " << *(rez.width) << endl;
+				}
 				break;
 			}
 			case'5':
