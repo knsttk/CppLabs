@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{C50E80A4-79EE-4A32-B2C5-5F8F24B096BF}</ProjectGuid>
+    <ProjectGuid>{45F0DBBB-2520-4C4A-973B-99AB175536C1}</ProjectGuid>
     <RootNamespace>Лабораторная5</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
