@@ -1,272 +1,153 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <conio.h>
 
 using namespace std;
 
-struct  Output
-{
-	const double *x, *y, *rad, *degree, *height, *sizedge, *width;
-};
-class Figure
-{
-public:
-	virtual void Move(double movex, double movey)
-	{
-
-	}
-	virtual void Size(short choose, short choose2, double change, double change2)
-	{
-
-	}
-	virtual void Turn(double degree)
-	{
-
-	}
-};
-class Circle : public Figure
+class Circle
 {
 public:
 	double  rad, change, x, y;
-	Circle(double x, double y, double rad)
-	{
-		this->x = x;
-		this->y = y;
-		this->rad = rad;
-	}
-	void Size(short choose, short choose2, double change, double change2)
-	{
-		if (choose == 1)
-		{
-			rad += change;
 
-		}
-		if (choose == 2)
-		{
-			rad -= change;
-		}
+	void Size(double change)
+	{
+			rad += change;
 	}
 	void Move(double movex, double movey)
 	{
 		x += movex;
 		y += movey;
 	}
-	Output output()
-	{
-		Output o;
-		o.x = &(this->x);
-		o.y = &(this->y);
-		o.rad = &(this->rad);
-		return o;
-	}
+
 };
-class Square : public Figure
+class Square
 {
 
 public:
 	double x, y, sizedge, degree;
-	Square(double x, double y, double sizedge)
-	{
-		this->x = x;
-		this->y = y;
-		this->sizedge = sizedge;
-	}
 
-	void Size(short choose, short choose2, double change, double change2)
+	void Size(double change)
 	{
-		if (choose == 1)
-		{
 			sizedge += change;
-
-		}
-		if (choose == 2)
-		{
-			sizedge -= change;
-		}
 	}
 
 	void Move(double movex, double movey)
 	{
 		x += movex;
-
 		y += movey;
 	}
 
-	void Turn(double degree)
+	void Turn(int degree)
 	{
 		this->degree = degree;
 	}
-	Output output()
-	{
-		Output o;
-		o.x = &(this->x);
-		o.y = &(this->y);
-		o.sizedge = &(this->sizedge);
-		return o;
-	}
+
 };
-class Rectan : public Figure
+class Rectan
 {
-	double x, y, movex, movey, height, width, change, change2, degree;
 public:
-	Rectan(double x, double y, double height, double width)
+	double x, y, height, width;
+	void Size(short choose2, double change)
 	{
-		this->x = x;
-		this->y = y;
-		this->height = height;
-		this->width = width;
-	}
-	void Size(short choose, short choose2, double change, double change2)
-	{
-		if (choose == 1)
-		{
+		
 			if (choose2 == 1)
 			{
 				width += change;
 			}
 			if (choose2 == 2)
 			{
-				height += change2;
+				height += change;
 			}
 			if (choose2 == 3)
 			{
 				width += change;
 				height += change;
 			}
-		}
-		if (choose == 2)
-		{
-			if (choose2 == 1)
-			{
-				width -= change;
-			}
-			if (choose2 == 2)
-			{
-				height -= change2;
-			}
-			if (choose2 == 3)
-			{
-				width -= change;
-				height -= change;
-			}
-		}
+		
 	}
 	void Move(double movex, double movey)
 	{
 		x += movex;
 		y += movey;
 	}
-	void Turn(double degree)
+	void Turn(int degree)
 	{
-		this->degree = degree;
+
 	}
-	Output output()
-	{
-		Output o;
-		o.x = &(this->x);
-		o.y = &(this->y);
-		o.width = &(this->width);
-		o.height = &(this->height);
-		return o;
-	}
+	
 };
 
 int main()
 {
 	setlocale(LC_ALL, "Russian");
-	Figure **F = new Figure *[10];
-	Circle *c = new Circle(0, 0, 0);
-	Figure *cir = c;
-	Square *s = new Square(0, 0, 0);
-	Figure *sq = s;
-	Rectan *r = new Rectan(0, 0, 0, 0);
-	Figure *rect = r;
+	Circle cir;
+	Square sq;
+	Rectan rect;
 	bool check = false;
-	double  x, y, rad, sizedge, movex, movey, height, width, degree;
+	double movex, movey;
+	int  degree = 0;
+	int povor = 0;
 	short type;
-
 	bool temp, temp2;
-	Output rez;
-	while (1)
-	{
+	short choose = 0;
+	double change = 0;
+	double change2 = 0;
 		while (!check)
 		{
 			check = false;
-			cout << "Âûáåðèòå Ôèãóðó: " << endl;
-			cout << "1 - Êðóã" << endl;
-			cout << "2 - Êâàäðàò" << endl;
-			cout << "3 - Ïðÿìîóãîëüíèê" << endl;
+			cout << "Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ð¤Ð¸Ð³ÑƒÑ€Ñƒ: " << endl;
+			cout << "1 - ÐšÑ€ÑƒÐ³" << endl;
+			cout << "2 - ÐšÐ²Ð°Ð´Ñ€Ð°Ñ‚" << endl;
+			cout << "3 - ÐŸÑ€ÑÐ¼Ð¾ÑƒÐ³Ð¾Ð»ÑŒÐ½Ð¸Ðº" << endl;
 			switch (_getch())
 			{
 			case '1':
 			{
 				type = 1;
-				cir = c;
-				F[type] = cir;
+				cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð¾Ñ€Ð´Ð¸Ð½Ð°Ñ‚Ñ‹: " << endl;
+				cout << "Ð¦ÐµÐ½Ñ‚Ñ€ X: ";
+				cin >> cir.x;
+				cout << "Ð¦ÐµÐ½Ñ‚Ñ€ Y: ";
+				cin >> cir.y;
+				cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ€Ð°Ð´Ð¸ÑƒÑ: ";
+				cin >> cir.rad;
 				check = true;
 				break;
 			}
 			case '2':
 			{
 				type = 2;
-				sq = s;
-				F[type] = sq;
+				cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð¾Ñ€Ð´Ð¸Ð½Ð°Ñ‚Ñ‹: " << endl;
+				cout << "Ð¦ÐµÐ½Ñ‚Ñ€ X: ";
+				cin >> sq.x;
+				cout << "Ð¦ÐµÐ½Ñ‚Ñ€ Y: ";
+				cin >> sq.y;
+				cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð´Ð»Ð¸Ð½Ñƒ ÑÑ‚Ð¾Ñ€Ð¾Ð½Ñ‹: ";
+				cin >> sq.sizedge;
 				check = true;
 				break;
 			}
 			case '3':
 			{
 				type = 3;
-				rect = r;
-				F[type] = rect;
+				cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð¾Ñ€Ð´Ð¸Ð½Ð°Ñ‚Ñ‹: " << endl;
+				cout << "Ð¦ÐµÐ½Ñ‚Ñ€ X: ";
+				cin >> rect.x;
+				cout << "Ð¦ÐµÐ½Ñ‚Ñ€ Y: ";
+				cin >> rect.y;
+				cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÑˆÐ¸Ñ€Ð¸Ð½Ñƒ: ";
+				cin >> rect.width;
+				cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð´Ð»Ð¸Ð½Ñƒ: ";
+				cin >> rect.height;
 				check = true;
 				break;
 			}
 			default:
 			{
-				cout << "Íåêîððåêòíûé ââîä. Ïîïðîáóéòå åù¸ ðàç." << endl;
+				cout << "ÐÐµÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´. ÐŸÐ¾Ð¿Ñ€Ð¾Ð±ÑƒÐ¹Ñ‚Ðµ ÐµÑ‰Ñ‘ Ñ€Ð°Ð·." << endl;
 				system("cls");
 				break;
 			}
 			}
-		}
-		if (type == 1)
-		{
-			cout << "Ââåäèòå êîîðäèíàòû: " << endl;
-			cout << "Öåíòð X: ";
-			cin >> x;
-			cout << "Öåíòð Y: ";
-			cin >> y;
-			cout << "Ââåäèòå ðàäèóñ: ";
-			cin >> rad;
-			*c = Circle(x, y, rad);
-			rez = c->output();
-		}
-		if (type == 2)
-		{
-			cout << "Ââåäèòå êîîðäèíàòû: " << endl;
-			cout << "Öåíòð X: ";
-			cin >> x;
-			cout << "Öåíòð Y: ";
-			cin >> y;
-			cout << "Ââåäèòå äëèíó ñòîðîíû: ";
-			cin >> sizedge;
-			*s = Square(x, y, sizedge);
-			rez = s->output();
-
-		}
-		if (type == 3)
-		{
-			cout << "Ââåäèòå êîîðäèíàòû: " << endl;
-			cout << "Öåíòð X: ";
-			cin >> x;
-			cout << "Öåíòð Y: ";
-			cin >> y;
-			cout << "Ââåäèòå øèðèíó: ";
-			cin >> width;
-			cout << "Ââåäèòå äëèíó: ";
-			cin >> height;
-			*r = Rectan(x, y, width, height);
-			rez = r->output();
 		}
 		bool turnon = 0;
 		bool check1 = false;
@@ -274,13 +155,13 @@ int main()
 		{
 
 			cout << "==================================" << endl;
-			cout << "Âûáåðèòå äåéñòâèå:" << endl;
-			cout << "1 - Èçìåíèòü ðàçìåð." << endl;
-			cout << "2 - Ñäâèíóòü ôèãóðó." << endl;
-			cout << "3 - Ïîâåðíóòü ôèãóðó." << endl;
-			cout << "4 - Òåêóùèå õàðàêòåðèñòèêè ôèãóðû" << endl;
-			cout << "5 - Âûéòè." << endl;
-			cout << "6 - Ââåñòè íîâóþ ôèãóðó." << endl;
+			cout << "Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ð´ÐµÐ¹ÑÑ‚Ð²Ð¸Ðµ:" << endl;
+			cout << "1 - Ð˜Ð·Ð¼ÐµÐ½Ð¸Ñ‚ÑŒ Ñ€Ð°Ð·Ð¼ÐµÑ€." << endl;
+			cout << "2 - Ð¡Ð´Ð²Ð¸Ð½ÑƒÑ‚ÑŒ Ñ„Ð¸Ð³ÑƒÑ€Ñƒ." << endl;
+			cout << "3 - ÐŸÐ¾Ð²ÐµÑ€Ð½ÑƒÑ‚ÑŒ Ñ„Ð¸Ð³ÑƒÑ€Ñƒ." << endl;
+			cout << "4 - Ð¢ÐµÐºÑƒÑ‰Ð¸Ðµ Ñ…Ð°Ñ€Ð°ÐºÑ‚ÐµÑ€Ð¸ÑÑ‚Ð¸ÐºÐ¸ Ñ„Ð¸Ð³ÑƒÑ€Ñ‹" << endl;
+			cout << "5 - Ð’Ñ‹Ð¹Ñ‚Ð¸." << endl;
+			cout << "6 - Ð’Ð²ÐµÑÑ‚Ð¸ Ð½Ð¾Ð²ÑƒÑŽ Ñ„Ð¸Ð³ÑƒÑ€Ñƒ." << endl;
 			cout << "==================================" << endl;
 			switch (_getch())
 			{
@@ -288,248 +169,264 @@ int main()
 			case'1':
 			{
 
-				cout << "Óâåëè÷èòü èëè óìåíüøèòü ôèãóðó?" << endl;
+				cout << "Ð£Ð²ÐµÐ»Ð¸Ñ‡Ð¸Ñ‚ÑŒ Ð¸Ð»Ð¸ ÑƒÐ¼ÐµÐ½ÑŒÑˆÐ¸Ñ‚ÑŒ Ñ„Ð¸Ð³ÑƒÑ€Ñƒ?" << endl;
 				temp = false;
 				temp2 = false;
 				while (temp == false)
 				{
-					short choose = 0;
-					short choose2 = 0;
-					double change = 0;
-					double change2 = 0;
 					if (type == 1 || type == 2)
 					{
-						cout << "1 - Óâåëè÷èòü." << endl;
-						cout << "2 - Óìåíüøèòü." << endl;
-
+						cout << "1 - Ð£Ð²ÐµÐ»Ð¸Ñ‡Ð¸Ñ‚ÑŒ." << endl;
+						cout << "2 - Ð£Ð¼ÐµÐ½ÑŒÑˆÐ¸Ñ‚ÑŒ." << endl;
 						switch (_getch())
 						{
 						case '1':
 						{
-							choose = 1;
-							cout << "Óâåëè÷èòü íà: ";
-							cin >> change;
-							F[type]->Size(choose, choose2, change, change2);
-							temp = true;
+							cout << "Ð£Ð²ÐµÐ»Ð¸Ñ‡Ð¸Ñ‚ÑŒ Ð½Ð°: ";
 							break;
 						}
-
 						case '2':
 						{
-							choose = 2;
-							while (temp2 == false)
-							{
-								cout << "Óìåíüøèòü íà: ";
-								cin >> change;
-								if (type == 1)
-								{
-									if (change > *(rez.rad))
-									{
-										cout << "Íåêîððåêòíûé ââîä, óìåíüøàåìàÿ âåëè÷èíà äîëæíà áûòü áîëüøå çíà÷åíèÿ óìåíüøåíèÿ." << endl;
-										continue;
-									}
-								}
-								else
-								{
-									if (change > *(rez.sizedge))
-									{
-										cout << "Íåêîððåêòíûé ââîä, óìåíüøàåìàÿ âåëè÷èíà äîëæíà áûòü áîëüøå çíà÷åíèÿ óìåíüøåíèÿ." << endl;
-										continue;
-									}
-								}
-								F[type]->Size(choose, choose2, change, change2);
-								temp2 = true;
-							}
+							choose = 1;
+							cout << "Ð£Ð¼ÐµÐ½ÑŒÑˆÐ¸Ñ‚ÑŒ Ð½Ð°: ";
 							break;
 						}
 
 						default:
 						{
-							cout << "Íåêîððåêòíûé ââîä. Ââåäèòå åù¸ ðàç." << endl;
+							cout << "ÐÐµÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´. Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐµÑ‰Ñ‘ Ñ€Ð°Ð·." << endl;
 							break;
 						}
+						}
+						while (temp2 == false)
+						{
+							cin >> change;
+						if (type == 1)
+							{
+								if (choose == 1)
+								{
+									if (change > cir.rad)
+									{
+										cout << "ÐÐµÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´, ÑƒÐ¼ÐµÐ½ÑŒÑˆÐ°ÐµÐ¼Ð°Ñ Ð²ÐµÐ»Ð¸Ñ‡Ð¸Ð½Ð° Ð´Ð¾Ð»Ð¶Ð½Ð° Ð±Ñ‹Ñ‚ÑŒ Ð±Ð¾Ð»ÑŒÑˆÐµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ ÑƒÐ¼ÐµÐ½ÑŒÑˆÐµÐ½Ð¸Ñ." << endl;
+										continue;
+									}
+									change /= -1;
+								}
+							
+								cir.Size(change);
+							}
+							if (type == 2)
+							{
+								if (choose == 1)
+								{
+									if (change > sq.sizedge)
+									{
+										cout << "ÐÐµÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´, ÑƒÐ¼ÐµÐ½ÑŒÑˆÐ°ÐµÐ¼Ð°Ñ Ð²ÐµÐ»Ð¸Ñ‡Ð¸Ð½Ð° Ð´Ð¾Ð»Ð¶Ð½Ð° Ð±Ñ‹Ñ‚ÑŒ Ð±Ð¾Ð»ÑŒÑˆÐµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ ÑƒÐ¼ÐµÐ½ÑŒÑˆÐµÐ½Ð¸Ñ." << endl;
+										continue;
+									}
+									change /= -1;
+								}
+								sq.Size(change);
+							}
+							choose = 0;
+							temp2 = true;
 
 						}
+						temp = true;
+						}
 						break;
-					}
-					if(type == 3)
+				}
+					
+				if (type == 3)
 					{
-
-						cout << "1 - Óâåëè÷èòü" << endl;
-						cout << "2 - Óìåíüøèòü" << endl;
+					short choose2;
+						cout << "1 - Ð£Ð²ÐµÐ»Ð¸Ñ‡Ð¸Ñ‚ÑŒ" << endl;
+						cout << "2 - Ð£Ð¼ÐµÐ½ÑŒÑˆÐ¸Ñ‚ÑŒ" << endl;
 						switch (_getch())
 						{
 						case '1':
 						{
-							choose = 1;
 							cout << "------------------------" << endl;
-							cout << "1 - Óâåëè÷èòü øèðèíó." << endl;
-							cout << "2 - Óâåëè÷èòü äëèíó." << endl;
-							cout << "3 - Óâåëè÷èòü è øèðèíó è äëèíó." << endl;
+							cout << "1 - Ð£Ð²ÐµÐ»Ð¸Ñ‡Ð¸Ñ‚ÑŒ ÑˆÐ¸Ñ€Ð¸Ð½Ñƒ." << endl;
+							cout << "2 - Ð£Ð²ÐµÐ»Ð¸Ñ‡Ð¸Ñ‚ÑŒ Ð´Ð»Ð¸Ð½Ñƒ." << endl;
+							cout << "3 - Ð£Ð²ÐµÐ»Ð¸Ñ‡Ð¸Ñ‚ÑŒ Ð¸ ÑˆÐ¸Ñ€Ð¸Ð½Ñƒ Ð¸ Ð´Ð»Ð¸Ð½Ñƒ." << endl;
 							cout << "------------------------" << endl;
-							switch (_getch())
-							{
-							case'1':
-							{
-								choose2 = 1;
-								cout << "Óâåëè÷èòü øèðèíó íà ";
-								change = 0;
-								cin >> change;
-								F[type]->Size(choose, choose2, change, change2);
-								temp = true;
-								break;
-							}
-							case '2':
-							{
-								choose2 = 2;
-								cout << "Óâåëè÷èòü äëèíó íà ";
-								change2 = 0;
-								cin >> change2;
-								F[type]->Size(choose, choose2, change, change2);
-								temp = true;
-								break;
-
-							}
-							case '3':
-							{
-								choose2 = 3;
-								cout << "Óâåëè÷èòü è øèðèíó è äëèíó íà ";
-								change = 0;
-								cin >> change;
-								F[type]->Size(choose, choose2, change, change2);
-								temp = true;
-								break;
-							}
-							default:
-							{
-								cout << "Íåêîððåêòíûé ââîä. Ïîïðîáóéòå åù¸ ðàç." << endl;
-								_getch();
-								F[type]->Size(change, choose2, change2, change2);
-								temp = true;
-								break;
-							}
-							}
 							break;
 						}
 						case'2':
 						{
-							choose = 2;
+							choose = 1;
 							cout << "------------------------" << endl;
-							cout << "1 - Óìåíüøèòü øèðèíó." << endl;
-							cout << "2 - Óìåíüøèòü äëèíó." << endl;
-							cout << "3 - Óìåíüøèòü è øèðèíó è äëèíó." << endl;
+							cout << "1 - Ð£Ð¼ÐµÐ½ÑŒÑˆÐ¸Ñ‚ÑŒ ÑˆÐ¸Ñ€Ð¸Ð½Ñƒ." << endl;
+							cout << "2 - Ð£Ð¼ÐµÐ½ÑŒÑˆÐ¸Ñ‚ÑŒ Ð´Ð»Ð¸Ð½Ñƒ." << endl;
+							cout << "3 - Ð£Ð¼ÐµÐ½ÑŒÑˆÐ¸Ñ‚ÑŒ Ð¸ ÑˆÐ¸Ñ€Ð¸Ð½Ñƒ Ð¸ Ð´Ð»Ð¸Ð½Ñƒ." << endl;
 							cout << "------------------------" << endl;
-							switch (_getch())
-							{
+							break;
+						}
+						default:
+						{
+							cout << "ÐÐµÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´. ÐŸÐ¾Ð¿Ñ€Ð¾Ð±ÑƒÐ¹Ñ‚Ðµ ÐµÑ‰Ñ‘ Ñ€Ð°Ð·." << endl;
+							_getch();
+							break;
+						}
+						}
+
+						switch (_getch())
+						{
 							case'1':
 							{
-								bool temp2;
 								choose2 = 1;
-								temp2 = false;
+								if (choose == 1)
+								{
+									cout << "Ð£Ð¼ÐµÐ½ÑŒÑˆÐ¸Ñ‚ÑŒ ÑˆÐ¸Ñ€Ð¸Ð½Ñƒ Ð½Ð°: ";
+								}
+								else
+								{
+									cout << "Ð£Ð²ÐµÐ»Ð¸Ñ‡Ð¸Ñ‚ÑŒ ÑˆÐ¸Ñ€Ð¸Ð½Ñƒ Ð½Ð°: ";
+								}
+
+								bool temp2 = false;
 								while (temp2 == false)
 								{
-									cout << "Óìåíüøèòü øèðèíó íà ";
-									change = 0;
 									cin >> change;
-									if (change > *(rez.width))
+									if (choose == 1)
 									{
-										cout << "Íåêîððåêòíûé ââîä, óìåíüøàåìàÿ âåëè÷èíà äîëæíà áûòü áîëüøå çíà÷åíèÿ óìåíüøåíèÿ." << endl;
-										continue;
+										if (change > rect.width)
+										{
+											cout << "ÐÐµÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´, ÑƒÐ¼ÐµÐ½ÑŒÑˆÐ°ÐµÐ¼Ð°Ñ Ð²ÐµÐ»Ð¸Ñ‡Ð¸Ð½Ð° Ð´Ð¾Ð»Ð¶Ð½Ð° Ð±Ñ‹Ñ‚ÑŒ Ð±Ð¾Ð»ÑŒÑˆÐµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ ÑƒÐ¼ÐµÐ½ÑŒÑˆÐµÐ½Ð¸Ñ." << endl;
+											continue;
+										}
+										change /= -1;
 									}
-									F[type]->Size(choose, choose2, change, change2);
+									rect.Size(choose2, change);
 									temp2 = true;
 								}
-								temp = true;
 								break;
-
 							}
+						
 							case '2':
 							{
 								choose2 = 2;
-								temp2 = false;
-								while (temp2 == false)
+							if (choose == 1)
+							{
+								cout << "Ð£Ð¼ÐµÐ½ÑŒÑˆÐ¸Ñ‚ÑŒ Ð´Ð»Ð¸Ð½Ñƒ Ð½Ð°: ";
+							}
+							else
+							{
+								cout << "Ð£Ð²ÐµÐ»Ð¸Ñ‡Ð¸Ñ‚ÑŒ Ð´Ð»Ð¸Ð½Ñƒ Ð½Ð°: ";
+							}
+
+						    temp2 = false;
+							while (temp2 == false)
+							{
+								cin >> change;
+								if (choose == 1)
 								{
-									cout << "Óìåíüøèòü äëèíó íà ";
-									change2 = 0;
-									cin >> change2;
-									if (change2 > *(rez.height))
+									if (change > rect.height)
 									{
-										cout << "Íåêîððåêòíûé ââîä, óìåíüøàåìàÿ âåëè÷èíà äîëæíà áûòü áîëüøå çíà÷åíèÿ óìåíüøåíèÿ." << endl;
+										cout << "ÐÐµÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´, ÑƒÐ¼ÐµÐ½ÑŒÑˆÐ°ÐµÐ¼Ð°Ñ Ð²ÐµÐ»Ð¸Ñ‡Ð¸Ð½Ð° Ð´Ð¾Ð»Ð¶Ð½Ð° Ð±Ñ‹Ñ‚ÑŒ Ð±Ð¾Ð»ÑŒÑˆÐµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ ÑƒÐ¼ÐµÐ½ÑŒÑˆÐµÐ½Ð¸Ñ." << endl;
 										continue;
 									}
-									F[type]->Size(choose, choose2, change, change2);
-									temp2 = true;
-									break;
+									change /= -1;
 								}
-								temp = true;
-								break;
+								rect.Size(choose2, change);
+								temp2 = true;
 							}
-							case '3':
+							break;
+						}
+						case '3':
+						{
+							choose2 = 3;
+							if (choose == 1)
 							{
-								choose2 = 3;
-								temp2 = false;
-								while (temp2 == false)
+								cout << "Ð£Ð¼ÐµÐ½ÑŒÑˆÐ¸Ñ‚ÑŒ Ð¸ ÑˆÐ¸Ñ€Ð¸Ð½Ñƒ Ð¸ Ð´Ð»Ð¸Ð½Ñƒ Ð½Ð°: ";
+							}
+							else
+							{
+								cout << "Ð£Ð²ÐµÐ»Ð¸Ñ‡Ð¸Ñ‚ÑŒ Ð¸ ÑˆÐ¸Ñ€Ð¸Ð½Ñƒ Ð¸ Ð´Ð»Ð¸Ð½Ñƒ Ð½Ð°: ";
+							}
+
+							temp2 = false;
+							while (temp2 == false)
+							{
+								cin >> change;
+								if (choose == 1)
 								{
-									cout << "Óìåíüøèòü è øèðèíó è äëèíó íà ";
-									change = 0;
-									cin >> change;
-									if (change > *(rez.height) || change > *(rez.width))
+									if (change > rect.width || change > rect.height)
 									{
-										cout << "Íåêîððåêòíûé ââîä, óìåíüøàåìàÿ âåëè÷èíà äîëæíà áûòü áîëüøå çíà÷åíèÿ óìåíüøåíèÿ." << endl;
+										cout << "ÐÐµÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´, ÑƒÐ¼ÐµÐ½ÑŒÑˆÐ°ÐµÐ¼Ð°Ñ Ð²ÐµÐ»Ð¸Ñ‡Ð¸Ð½Ð° Ð´Ð¾Ð»Ð¶Ð½Ð° Ð±Ñ‹Ñ‚ÑŒ Ð±Ð¾Ð»ÑŒÑˆÐµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ ÑƒÐ¼ÐµÐ½ÑŒÑˆÐµÐ½Ð¸Ñ." << endl;
 										continue;
 									}
-									F[type]->Size(choose, choose2, change, change2);
-									temp2 = true;
+									change /= -1;
 								}
-								temp = true;
-								break;
-							}
-							default:
-							{
-								cout << "Íåêîððåêòíûé ââîä. Ïîïðîáóéòå åù¸ ðàç." << endl;
-								_getch();
-								F[type]->Size(choose, choose2, change, change2);
-							}
+								rect.Size(choose2, change);
+								temp2 = true;
 							}
 							break;
 						}
 						default:
 						{
-							cout << "Íåêîððåêòíûé ââîä. Ïîïðîáóéòå åù¸ ðàç." << endl;
+							cout << "ÐÐµÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´. ÐŸÐ¾Ð¿Ñ€Ð¾Ð±ÑƒÐ¹Ñ‚Ðµ ÐµÑ‰Ñ‘ Ñ€Ð°Ð·." << endl;
 							_getch();
-							F[type]->Size(choose, choose2, change, change2);
-							break;
 						}
 						}
 					}
-				}
-				break;
-
+					break;
 			}
 			case'2':
 			{
-				cout << "Ñäâèíóòü ôèãóðó: " << endl;
-				cout << "Ïî X :";
+				cout << "Ð¡Ð´Ð²Ð¸Ð½ÑƒÑ‚ÑŒ Ñ„Ð¸Ð³ÑƒÑ€Ñƒ: " << endl;
+				cout << "ÐŸÐ¾ X :";
 				cin >> movex;
-				cout << "Ïî Y :";
+				cout << "ÐŸÐ¾ Y :";
 				cin >> movey;
-				F[type]->Move(movex, movey);
+				if (type == 1)
+				{
+					cir.Move(movex, movey);
+				}
+				if (type == 2)
+				{
+					sq.Move(movex, movey);
+				}
+				if (type == 3)
+				{
+					rect.Move(movex, movey);
+				}
 				break;
 			}
 			case'3':
 			{
 				if (type == 1)
 				{
-					cout << endl << "Íåò ñìûñëà âðàùàòü êðóã. Ýòî æå êðóã!" << endl << endl;
+					cout << endl << "ÐÐµÑ‚ ÑÐ¼Ñ‹ÑÐ»Ð° Ð²Ñ€Ð°Ñ‰Ð°Ñ‚ÑŒ ÐºÑ€ÑƒÐ³. Ð­Ñ‚Ð¾ Ð¶Ðµ ÐºÑ€ÑƒÐ³!" << endl << endl;
 					break;
 				}
 				else
 				{
-					
-					cout << "Ïîâåðíóòü íà: ";
+					cout << "ÐŸÐ¾Ð²ÐµÑ€Ð½ÑƒÑ‚ÑŒ Ð½Ð°: ";
 					cin >> degree;
-					F[type]->Turn(degree);
-					cout << "Ôèãóðà áûëà ïîâ¸ðíóòà íà " << degree << " ãðàäóñîâ." << endl;
+					if (type == 2)
+					{
+						sq.Turn(degree);
+					}
+					if (type == 3)
+					{
+						rect.Turn(degree);
+					}
+					cout << "Ð¤Ð¸Ð³ÑƒÑ€Ð° Ð±Ñ‹Ð»Ð° Ð¿Ð¾Ð²Ñ‘Ñ€Ð½ÑƒÑ‚Ð° Ð½Ð° " << degree;
+					if ((degree < 10 || degree > 20) && degree % 10 == 1)
+					{
+						cout << " Ð³Ñ€Ð°Ð´ÑƒÑ." << endl;
+					}
+					if ((degree < 10 || degree > 20) && degree % 10 >= 2 && degree % 10 <= 4)
+					{
+						cout << " Ð³Ñ€Ð°Ð´ÑƒÑÐ°." << endl;
+					}
+					if (degree % 10 >= 5 && degree % 10 <= 9 || degree % 10 == 0 || (degree > 9 && degree < 21))
+					{
+						cout << " Ð³Ñ€Ð°Ð´ÑƒÑÐ¾Ð²." << endl;
+					}
+					povor += degree;
 					turnon = 1;
 					break;
 				}
@@ -538,20 +435,19 @@ int main()
 			{
 				if (type == 1)
 				{
-					cout << "Öåíòð x = " << *(rez.x) << " Öåíòð y = " << *(rez.y) << " Ðàäèóñ = " << *(rez.rad);
-					
+					cout << "Ð¦ÐµÐ½Ñ‚Ñ€ x = " << cir.x << " Ð¦ÐµÐ½Ñ‚Ñ€ y = " << cir.y << " Ð Ð°Ð´Ð¸ÑƒÑ = " << cir.rad;
 				}
 				if (type == 2)
 				{
-					cout << "Öåíòð x = " << *(rez.x) << " Öåíòð y = " << *(rez.x) << " Äëèíà ñòîðîíû = " << *(rez.sizedge);
+					cout << "Ð¦ÐµÐ½Ñ‚Ñ€ x = " << sq.x << " Ð¦ÐµÐ½Ñ‚Ñ€ y = " << sq.y << " Ð”Ð»Ð¸Ð½Ð° ÑÑ‚Ð¾Ñ€Ð¾Ð½Ñ‹ = " << sq.sizedge;
 				}
 				if (type == 3)
 				{
-					cout << "Öåíòð x = " << *(rez.x) << " Öåíòð y = " << *(rez.y) << " Äëèíà = " << *(rez.height) << " Øèðèíà = " << *(rez.width);
+					cout << "Ð¦ÐµÐ½Ñ‚Ñ€ x = " << rect.x << " Ð¦ÐµÐ½Ñ‚Ñ€ y = " << rect.y << " Ð¨Ð¸Ñ€Ð¸Ð½Ð° = " << rect.width << " Ð”Ð»Ð¸Ð½Ð° = " << rect.height;
 				}
 				if (turnon == 1)
 				{
-					cout << " Ãðàäóñ ïîâîðîòà: " << degree;
+					cout << " Ð“Ñ€Ð°Ð´ÑƒÑ Ð¿Ð¾Ð²Ð¾Ñ€Ð¾Ñ‚Ð°: " << povor;
 				}
 				cout << endl;
 				break;
@@ -559,6 +455,7 @@ int main()
 			case'5':
 			{
 				exit(0);
+
 			}
 			case'6':
 			{
@@ -567,10 +464,11 @@ int main()
 			}
 			default:
 			{
-				cout << "Íåêîððåêòíûé ââîä. Ïîïðîáóéòå åù¸ ðàç." << endl;
+				povor = 0;
+				cout << "ÐÐµÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´. ÐŸÐ¾Ð¿Ñ€Ð¾Ð±ÑƒÐ¹Ñ‚Ðµ ÐµÑ‰Ñ‘ Ñ€Ð°Ð·." << endl;
 				break;
 			}
 			}
 		}
-	}
+	
 }
