@@ -24,7 +24,6 @@ public:
 	{
 		this->real = other.real;
 		this->imag = other.imag;
-
 	}
 
 	Complex & operator = (const Complex &other)
