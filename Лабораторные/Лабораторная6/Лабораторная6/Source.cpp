@@ -26,7 +26,7 @@ public:
 		this->imag = other.imag;
 	}
 
-	Complex & operator = (const Complex &other)
+	Complex & operator = (Complex &other)
 	{
 		this->real = other.real;
 		this->imag = other.imag;
@@ -69,25 +69,18 @@ public:
 
 	}
 
-	friend ostream &operator<<(ostream &out, Complex &p)
+	friend ostream &operator<<(ostream &out, Complex &n)
 
 	{
-		out << "Результат : " << p.real << " + " << p.imag << " * i" << endl;
+		out << "Результат : " << n.real << " + " << n.imag << " * i" << endl;
 		return out;
 	}
-
-	~Complex()
-	{
-		return;
-	}
-
-
 };
 
 int main()
 {
 	setlocale(LC_ALL, "Russian");
-	Complex x, y, z;
+	Complex a, b, z;
 	bool end = false;
 	while (end == false)
 	{                  
@@ -105,16 +98,16 @@ int main()
 		case '1':
 		{
 			cout << "Первое число." << endl;
-			x.Set();
+			a.Set();
 			cout << endl;
 			cout << "Второе число." << endl;
-			y.Set();
+			b.Set();
 			break;
 		}
 
 		case '2':
 		{
-			z = x + y;
+			z = a + b;
 			cout << z;
 
 			break;
@@ -122,7 +115,7 @@ int main()
 
 		case '3':
 		{
-			z = x - y;
+			z = a - b;
 			cout << z;
 
 			break;
@@ -130,7 +123,7 @@ int main()
 
 		case '4':
 		{
-			z = x * y;
+			z = a * b;
 			cout << z;
 
 			break;
@@ -140,7 +133,8 @@ int main()
 		{
 			cout << "Выход..." << endl;
 			Sleep(2000);
-			exit(0);
+			end = true;
+			break;
 		}
 
 		default:
@@ -150,10 +144,5 @@ int main()
 		}
 
 		}
-
-
 	}
-
-
-
 }
