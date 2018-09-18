@@ -1,31 +1,65 @@
 ﻿#include <iostream>
 #include <conio.h>
-
+#include <cstdlib>
+#include <cctype>
 using namespace std;
+bool Numerror = false;
+void ErrorView();
+
+double tempval;
+double EnterError()
+{
+
+	tempval = 0;
+
+		char *enter = new char[255];
+
+		cin.getline(enter, 255);
+		bool correct = false;
+		while (correct == false)
+		{
+			const char *example = "0123456789";
+
+			for (int i = 0; i <= strlen(enter); i++)
+			{
+				if (!strchr(example, enter[i]))
+				{
+					cout << "Ошибка! Введите число." << endl;
+					return NULL;
+				}
+				else
+				{
+					correct = true;
+				}
+			}
+		}
+		double *okenter = new double[strlen(enter + 1)];
+		for (int i = 0; i <= strlen(enter + 1); i++)
+		{
+			okenter[i] = atof(enter);
+		}
+		tempval = *okenter;
+		return tempval;
+	
+}
 
 class Circle
 {
 	double  rad, change, x, y;
 public:	
-	double outx, outy, outrad;
-	void Set()
-	{
-		cout << "Введите координаты: " << endl;
-		cout << "Центр X: ";
-		cin >> x;
-		cout << "Центр Y: ";
-		cin >> y;
-		cout << "Введите радиус: ";
-		cin >> rad;
-	}
-	
+	Circle(double x, double y, double rad) : x(x), y(y), rad(rad) {	}
+
+	double getx() const { return x; }
+	double gety() const { return y; }
+	double getRad() const { return rad; }
+
 	void Size(double change, short choose)
 	{
 			if (choose == 1)
 			{
 				if (change > rad)
-				{
-					cout << "Некорректный ввод, уменьшаемая величина должна быть больше значения уменьшения." << endl;
+				{		
+					Numerror = true;
 					return;
 				}
 				change /= -1;
@@ -42,29 +76,18 @@ public:
 		x += movex;
 		y += movey;
 	}
-	void Output()
-	{
-		outx = x;
-		outy = y;
-		outrad = rad;
-	}
+
 
 };
 class Square
 {
 	double x, y, sizedge, degree;
 public:
-	double outx, outy, outsizedge;
-	void Set()
-	{
-		cout << "Введите координаты: " << endl;
-		cout << "Центр X: ";
-		cin >> x;
-		cout << "Центр Y: ";
-		cin >> y;
-		cout << "Введите длину стороны: ";
-		cin >> sizedge;
-	}
+	Square(double x, double y, double sizedge) : x(x), y(y), sizedge(sizedge) {	}
+	double getx() const { return x; }
+	double gety() const { return y; }
+	double getsizedge() const { return sizedge; }
+	
 	void Size(double change, short choose)
 	{
 
@@ -72,7 +95,7 @@ public:
 		{
 			if (change > sizedge)
 			{
-				cout << "Некорректный ввод, уменьшаемая величина должна быть больше значения уменьшения." << endl;
+				Numerror = true;
 				return;
 			}
 			change /= -1;
@@ -95,31 +118,18 @@ public:
 	{
 		this->degree = degree;
 	}
-	void Output()
-	{
 
-		outx = x;
-		outy = y;
-		outsizedge = sizedge;
-	}
 };
 class Rectan
 {
 	double x, y, height, width;
 public:
-	double outx, outy, outwidth, outheight;
-	void Set()
-	{
-		cout << "Введите координаты: " << endl;
-		cout << "Центр X: ";
-		cin >> x;
-		cout << "Центр Y: ";
-		cin >> y;
-		cout << "Введите ширину: ";
-		cin >> width;
-		cout << "Введите длину: ";
-		cin >> height;
-	}
+	Rectan(double x, double y, double width, double height) : x(x), y(y), width(width), height(height) { }
+	double getx() const { return x; }
+	double gety() const { return y; }
+	double getwidth() const { return width; }
+	double getheight() const { return height; }
+
 	void Size(short choose2, double change, short choose)
 	{
 
@@ -129,7 +139,7 @@ public:
 			{
 				if (change > width)
 				{
-					cout << "Некорректный ввод, уменьшаемая величина должна быть больше значения уменьшения." << endl;
+					Numerror = true;
 					return;
 				}
 				change /= -1;
@@ -140,33 +150,31 @@ public:
 				width += change;
 			}
 		}
-
 		if (choose2 == 2)
 		{
+			if (choose == 1)
 			{
-				if (choose == 1)
+				if (change > width)
 				{
-					if (change > width)
-					{
-						cout << "Некорректный ввод, уменьшаемая величина должна быть больше значения уменьшения." << endl;
-						return;
-					}
-					change /= -1;
-					height += change;
+					Numerror = true;
+					return;
 				}
-				else
-				{
-					height += change;
-				}
+				change /= -1;
+				height += change;
 			}
-			if (choose2 == 3)
+			else
+			{
+				height += change;
+			}
+		}
+		if (choose2 == 3)
 			{
 				if (choose == 1)
 				{
 					if (change > width || change > height)
 					{
-						cout << "Некорректный ввод, уменьшаемая величина должна быть больше значения уменьшения." << endl;
-						return;
+						Numerror = true;
+						return ;
 					}
 					change /= -1;
 					width += change;
@@ -178,8 +186,7 @@ public:
 					height += change;
 				}
 			}
-
-		}
+		
 	}
 	void Move(double movex, double movey)
 	{
@@ -190,22 +197,14 @@ public:
 	{
 
 	}
-	void Output()
-	{
-
-		outx = x;
-		outy = y;
-		outwidth = width;
-		outheight = height;
-	}
 };
 
-int main()
+int main(int *okenter, char *enter)
 {
+	Circle *cir = new Circle(0, 0, 0);
+	Square *sq = new Square(0, 0, 0);
+	Rectan *rect = new Rectan(0, 0, 0, 0);
 	setlocale(LC_ALL, "Russian");
-	Circle cir;
-	Square sq;
-	Rectan rect;
 	bool check = false;
 	double movex, movey;
 	int  degree = 0;
@@ -226,24 +225,106 @@ int main()
 		{
 		case '1':
 		{
+			bool cor = false;
+			while (cor == false)
+			{
+				cout << "Введите координаты: " << endl;
+				cout << "Центр X: " << endl;
 
-			type = 1;
-			cir.Set();
-			check = true;
+				if (EnterError() == NULL)
+				{
+					continue;
+				}
+				double x = tempval;
+				cout << "Центр Y: " << endl;
+				if (EnterError() == NULL)
+				{
+					continue;
+				}
+				double y = tempval;
+				cout << "Введите Радиус: " << endl;
+				if (EnterError() == NULL)
+				{
+					continue;
+				}
+				double rad = tempval;
+				type = 1;
+				Circle cirl(x, y, rad);
+				cir = &cirl;
+				check = true;
+				cor = true;
+			}
+			delete[] enter;
 			break;
 		}
 		case '2':
 		{
 			type = 2;
-			sq.Set();
-			check = true;
+			bool cor = false;
+			while (cor == false)
+			{
+				cout << "Введите координаты: " << endl;
+				cout << "Центр X: ";
+				if (EnterError() == NULL)
+				{
+					continue;
+				}
+				double x = tempval;
+				cout << "Центр Y: ";
+				if (EnterError() == NULL)
+				{
+					continue;
+				}
+				double y = tempval;
+				cout << "Введите длину стороны: ";
+				if (EnterError() == NULL)
+				{
+					continue;
+				}
+				double sizedge = tempval;
+				Square sqr(x, y, sizedge);
+				sq = &sqr;
+				cor = true;
+				check = true;
+			}
 			break;
 		}
 		case '3':
 		{
 			type = 3;
-			rect.Set();
-			check = true;
+			bool cor = false;
+			while (cor == false)
+			{
+				cout << "Введите координаты: " << endl;
+				cout << "Центр X: ";
+				if (EnterError() == NULL)
+				{
+					continue;
+				}
+				double x = tempval;
+				cout << "Центр Y: ";
+				if (EnterError() == NULL)
+				{
+					continue;
+				}
+				double y = tempval;
+				cout << "Введите ширину: ";
+				if (EnterError() == NULL)
+				{
+					continue;
+				}
+				double width = tempval;
+				cout << "Введите длину: ";
+				if (EnterError() == NULL)
+				{
+					continue;
+				}
+				double height = tempval;
+				Rectan rectn(x, y, width, height);
+				rect = &rectn;
+				cor = true;
+				check = true;
+			}
 			break;
 		}
 		default:
@@ -258,7 +339,6 @@ int main()
 	bool check1 = false;
 	while (!check1)
 	{
-
 		cout << "==================================" << endl;
 		cout << "Выберите действие:" << endl;
 		cout << "1 - Изменить размер." << endl;
@@ -305,15 +385,27 @@ int main()
 					}
 					while (temp2 == false)
 					{
-						cin >> change;
+
+						bool cor = false;
+						while (cor == false)
+						{
+							if (EnterError() == NULL)
+							{
+								continue;
+							}
+							change = tempval;
+							cor = true;
+						}
 						if (type == 1)
 						{
-							cir.Size(change, choose);
+							cir->Size(change, choose);
+							ErrorView();
 						}
 						
 						if (type == 2)
 						{
-							sq.Size(change, choose);
+							sq->Size(change, choose);
+							ErrorView();
 						}
 						choose = 0;
 						temp2 = true;
@@ -326,7 +418,7 @@ int main()
 
 			if (type == 3)
 			{
-				short choose2;
+				short choose2 = 0;
 				cout << "1 - Увеличить" << endl;
 				cout << "2 - Уменьшить" << endl;
 				switch (_getch())
@@ -338,16 +430,18 @@ int main()
 					cout << "2 - Увеличить длину." << endl;
 					cout << "3 - Увеличить и ширину и длину." << endl;
 					cout << "------------------------" << endl;
+					
 					break;
 				}
 				case'2':
 				{
-					choose = 1;
+					
 					cout << "------------------------" << endl;
 					cout << "1 - Уменьшить ширину." << endl;
 					cout << "2 - Уменьшить длину." << endl;
 					cout << "3 - Уменьшить и ширину и длину." << endl;
 					cout << "------------------------" << endl;
+					choose = 1;
 					break;
 				}
 				default:
@@ -369,15 +463,25 @@ int main()
 					}
 					else
 					{
+
 						cout << "Увеличить ширину на: ";
 					}
 
 					bool temp2 = false;
 					while (temp2 == false)
 					{
-						cin >> change;
-						
-						rect.Size(choose2, change, choose2);
+						bool cor = false;
+						while (cor == false)
+						{
+							if (EnterError() == NULL)
+							{
+								continue;
+							}
+							change = tempval;
+							cor = true;
+						}
+						rect->Size(choose2, change, choose2);
+						ErrorView();
 						temp2 = true;
 					}
 					break;
@@ -398,8 +502,18 @@ int main()
 					temp2 = false;
 					while (temp2 == false)
 					{
-						cin >> change;
-						rect.Size(choose2, change, choose);
+						bool cor = false;
+						while (cor == false)
+						{
+							if (EnterError() == NULL)
+							{
+								continue;
+							}
+							change = tempval;
+							cor = true;
+						}
+						rect->Size(choose2, change, choose);
+						ErrorView();
 						temp2 = true;
 					}
 					break;
@@ -419,8 +533,18 @@ int main()
 					temp2 = false;
 					while (temp2 == false)
 					{
-						cin >> change;
-						rect.Size(choose2, change, choose);
+						bool cor = false;
+						while (cor == false)
+						{
+							if (EnterError() == NULL)
+							{
+								continue;
+							}
+							cor = true;
+							change = tempval;
+						}
+						rect->Size(choose2, change, choose);
+						ErrorView();
 						temp2 = true;
 					}
 					break;
@@ -437,21 +561,41 @@ int main()
 		case'2':
 		{
 			cout << "Сдвинуть фигуру: " << endl;
-			cout << "По X :";
-			cin >> movex;
-			cout << "По Y :";
-			cin >> movey;
+			
+			bool cor = false;
+			while (cor == false)
+			{
+				cout << "По X :";
+				if (EnterError() == NULL)
+				{
+					continue;
+				}
+				movex = tempval;
+				cor = true;
+			}
+	
+			cor = false;
+			while (cor == false)
+			{
+				cout << "По Y :";
+				if (EnterError() == NULL)
+				{
+					continue;
+				}
+				movey = tempval;
+				cor = true;
+			}
 			if (type == 1)
 			{
-				cir.Move(movex, movey);
+				cir->Move(movex, movey);
 			}
 			if (type == 2)
 			{
-				sq.Move(movex, movey);
+				sq->Move(movex, movey);
 			}
 			if (type == 3)
 			{
-				rect.Move(movex, movey);
+				rect->Move(movex, movey);
 			}
 			break;
 		}
@@ -464,15 +608,24 @@ int main()
 			}
 			else
 			{
-				cout << "Повернуть на: ";
-				cin >> degree;
+				bool cor = false;
+				while (cor == false)
+				{
+					cout << "Повернуть на: ";
+					if (EnterError() == NULL)
+					{
+						continue;
+					}
+					degree = tempval;
+					cor = true;
+				}
 				if (type == 2)
 				{
-					sq.Turn(degree);
+					sq->Turn(degree);
 				}
 				if (type == 3)
 				{
-					rect.Turn(degree);
+					rect->Turn(degree);
 				}
 				cout << "Фигура была повёрнута на " << degree;
 				if ((degree < 10 || degree > 20) && degree % 10 == 1)
@@ -496,18 +649,15 @@ int main()
 		{
 			if (type == 1)
 			{
-			cir.Output();
-				cout << "Центр x = " << cir.outx << " Центр y = " << cir.outy << " Радиус = " << cir.outrad;
+				cout << "Центр x = " << cir->getx() << " Центр y = " << cir->gety() << " Радиус = " << cir->getRad();
 			}
 			if (type == 2)
 			{
-				sq.Output();
-				cout << "Центр x = " << sq.outx << " Центр y = " << sq.outy << " Длина стороны = " << sq.outsizedge;
+			cout << "Центр x = " << sq->getx() << " Центр y = " << sq->gety() << " Длина стороны = " << sq->getsizedge();
 			}
 			if (type == 3)
 			{
-				rect.Output();
-				cout << "Центр x = " << rect.outx << " Центр y = " << rect.outy << " Ширина = " << rect.outwidth << " Длина = " << rect.outheight;
+				cout << "Центр x = " << rect->getx() << " Центр y = " << rect->gety() << " Ширина = " << rect->getwidth() << " Длина = " << rect->getheight();
 			}
 			if (turnon == 1)
 			{
@@ -518,13 +668,14 @@ int main()
 		}
 		case'5':
 		{
+			delete[] okenter;
 			exit(0);
-
 		}
 		case'6':
 		{
+			delete[] okenter;
 			system("cls");
-			main();
+			main(okenter, enter);
 		}
 		default:
 		{
@@ -535,4 +686,13 @@ int main()
 		}
 	}
 
+}
+
+void ErrorView()
+{
+	if (Numerror == true)
+	{
+		cout << "Некорректный ввод. Уменьшаемая величина не должна быть меньше значения уменьшения!" << endl;
+		Numerror = false;
+	}
 }

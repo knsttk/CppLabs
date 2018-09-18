@@ -1,0 +1,6 @@
+один one
+два two
+три three
+четыре four
+пончик donut
+привет hello
